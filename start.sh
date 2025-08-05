@@ -7,35 +7,45 @@ echo "🚀 Starting Ludus Workshop Environment (Native)..."
 
 # Check if required tools are installed and install if missing
 if ! command -v node &> /dev/null; then
-    echo "📦 Node.js not found. Installing..."
-    if command -v apt &> /dev/null; then
-        # Fix Kali Linux repository issues and install Node.js via NodeSource
-        echo "🔧 Setting up NodeSource repository for reliable Node.js installation..."
-        curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-        sudo apt-get install -y nodejs
-    elif command -v yum &> /dev/null; then
-        sudo yum install -y nodejs npm
-    elif command -v brew &> /dev/null; then
-        brew install node
-    else
-        echo "❌ No supported package manager found. Please install Node.js manually."
-        exit 1
-    fi
+    echo "📦 Node.js not found. Installing via direct download..."
+    
+    # Detect architecture
+    ARCH=$(uname -m)
+    case $ARCH in
+        x86_64) NODE_ARCH="x64" ;;
+        aarch64|arm64) NODE_ARCH="arm64" ;;
+        armv7l) NODE_ARCH="armv7l" ;;
+        *) echo "❌ Unsupported architecture: $ARCH"; exit 1 ;;
+    esac
+    
+    NODE_VERSION="v20.18.1"
+    NODE_TARBALL="node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.xz"
+    NODE_URL="https://nodejs.org/dist/${NODE_VERSION}/${NODE_TARBALL}"
+    
+    echo "🔧 Downloading Node.js ${NODE_VERSION} for ${NODE_ARCH}..."
+    cd /tmp
+    curl -fsSLO "$NODE_URL"
+    
+    echo "📦 Installing Node.js to /opt/nodejs..."
+    sudo mkdir -p /opt/nodejs
+    sudo tar -xJf "$NODE_TARBALL" -C /opt/nodejs --strip-components=1
+    
+    echo "🔗 Creating symlinks..."
+    sudo ln -sf /opt/nodejs/bin/node /usr/local/bin/node
+    sudo ln -sf /opt/nodejs/bin/npm /usr/local/bin/npm
+    sudo ln -sf /opt/nodejs/bin/npx /usr/local/bin/npx
+    
+    # Clean up
+    rm -f "$NODE_TARBALL"
+    cd - > /dev/null
+    
+    echo "✅ Node.js installed successfully"
 fi
 
+# Verify npm is available (should be included with Node.js)
 if ! command -v npm &> /dev/null; then
-    echo "📦 npm not found. Installing..."
-    if command -v apt &> /dev/null; then
-        # npm should be included with Node.js from NodeSource, but install if missing
-        sudo apt-get install -y npm
-    elif command -v yum &> /dev/null; then
-        sudo yum install -y npm
-    elif command -v brew &> /dev/null; then
-        brew install npm
-    else
-        echo "❌ No supported package manager found. Please install npm manually."
-        exit 1
-    fi
+    echo "❌ npm not found after Node.js installation. Something went wrong."
+    exit 1
 fi
 
 if ! command -v python3 &> /dev/null; then
