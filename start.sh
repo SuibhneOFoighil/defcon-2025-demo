@@ -9,9 +9,12 @@ echo "🚀 Starting Ludus Workshop Environment (Native)..."
 if ! command -v node &> /dev/null; then
     echo "📦 Node.js not found. Installing..."
     if command -v apt &> /dev/null; then
-        sudo apt update && sudo apt install -y nodejs
+        # Fix Kali Linux repository issues and install Node.js via NodeSource
+        echo "🔧 Setting up NodeSource repository for reliable Node.js installation..."
+        curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+        sudo apt-get install -y nodejs
     elif command -v yum &> /dev/null; then
-        sudo yum install -y nodejs
+        sudo yum install -y nodejs npm
     elif command -v brew &> /dev/null; then
         brew install node
     else
@@ -23,7 +26,8 @@ fi
 if ! command -v npm &> /dev/null; then
     echo "📦 npm not found. Installing..."
     if command -v apt &> /dev/null; then
-        sudo apt install -y npm
+        # npm should be included with Node.js from NodeSource, but install if missing
+        sudo apt-get install -y npm
     elif command -v yum &> /dev/null; then
         sudo yum install -y npm
     elif command -v brew &> /dev/null; then
