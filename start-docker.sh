@@ -138,28 +138,52 @@ echo "🔄 Starting Docker daemon..."
 sudo systemctl start docker.service 2>/dev/null || true
 sleep 2
 
-# Test Docker permissions
+# Test Docker permissions with timeout
 echo "🔐 Checking Docker permissions..."
-if ! docker ps &> /dev/null; then
-    echo "🔧 Fixing Docker permissions..."
-    # Add user to docker group (already done above, but ensure it's applied)
-    sudo usermod -aG docker $USER
-    
-    # Change docker socket permissions as fallback
-    sudo chmod 666 /var/run/docker.sock 2>/dev/null || true
-    
-    # Test again
-    if ! docker ps &> /dev/null; then
-        echo "⚠️  Docker permissions still need fixing. Using sudo for Docker commands..."
-        # Create a wrapper function to use sudo for docker commands
-        export DOCKER_SUDO="sudo"
-    else
-        echo "✅ Docker permissions fixed!"
-        export DOCKER_SUDO=""
-    fi
-else
+DOCKER_TEST_TIMEOUT=10
+if timeout $DOCKER_TEST_TIMEOUT docker ps &> /dev/null; then
     echo "✅ Docker permissions OK!"
     export DOCKER_SUDO=""
+else
+    echo "🔧 Docker permissions issue detected. Using sudo for Docker commands..."
+    # Don't try to fix permissions as it's complex - just use sudo
+    export DOCKER_SUDO="sudo"
+    
+    # Quick test that sudo works
+    if ! sudo docker ps &> /dev/null; then
+        echo "❌ Docker daemon may not be running properly. Trying to start..."
+        sudo systemctl restart docker.service
+        sleep 5
+        if ! sudo docker ps &> /dev/null; then
+            echo "❌ Docker is not working. Please check: sudo systemctl status docker.service"
+            exit 1
+        fi
+    fi
+    echo "✅ Docker working with sudo!"
+fi
+
+# Pre-pull Docker images to avoid build-time authentication issues
+echo "📦 Pre-pulling Docker base images..."
+echo "   This ensures images are available for building..."
+if ! ${DOCKER_SUDO} docker pull node:20-alpine &> /dev/null; then
+    echo "⚠️  Failed to pull node:20-alpine image. You may need to:"
+    echo "    1. Create a free Docker Hub account at https://hub.docker.com"
+    echo "    2. Run: docker login"
+    echo "    3. Try the script again"
+    echo ""
+    read -p "Would you like to continue anyway? (y/N): " continue_without_images
+    if [[ ! "$continue_without_images" =~ ^[Yy]$ ]]; then
+        echo "Exiting. Please set up Docker authentication and try again."
+        exit 1
+    fi
+else
+    echo "✅ node:20-alpine pulled successfully"
+fi
+
+if ! ${DOCKER_SUDO} docker pull python:3.11-alpine &> /dev/null; then
+    echo "⚠️  Failed to pull python:3.11-alpine image"
+else
+    echo "✅ python:3.11-alpine pulled successfully"
 fi
 
 # Create environment file if it doesn't exist
