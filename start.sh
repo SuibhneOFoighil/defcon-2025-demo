@@ -92,8 +92,8 @@ fi
 echo "🚀 Starting Ludus GUI on port 3000..."
 cd ludus-gui
 if [ ! -d "node_modules" ]; then
-    echo "📦 Installing Ludus GUI dependencies..."
-    npm install --legacy-peer-deps --ignore-scripts
+    echo "📦 Running Ludus GUI setup..."
+    ./setup.sh
 fi
 echo "🔨 Building Ludus GUI for production..."
 npm run build
