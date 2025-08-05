@@ -1,10 +1,12 @@
-[2025/08/05 15:15:55:8529] N: ttyd 1.7.7-unknown (libwebsockets 4.4.0-unknown)
-[2025/08/05 15:15:55:8536] N: tty configuration:
-[2025/08/05 15:15:55:8536] N:   start command: /bin/bash
-[2025/08/05 15:15:55:8536] N:   close signal: SIGHUP (1)
-[2025/08/05 15:15:55:8536] N:   terminal type: xterm-256color
-[2025/08/05 15:15:55:8541] N:    /opt/homebrew/Cellar/libwebsockets/4.4.1/lib/libwebsockets-evlib_uv.dylib
-[2025/08/05 15:15:55:8541] N: lws_create_context: LWS: 4.4.0-unknown, NET CLI SRV H1 H2 WS SS-JSON-POL ConMon IPV6-off
-[2025/08/05 15:15:55:8563] N: elops_init_pt_uv:  Using foreign event loop...
-[2025/08/05 15:15:55:8586] N: [vh|1|default||7681]: lws_socket_bind: source ads 0.0.0.0
-[2025/08/05 15:15:55:8586] N:  Listening on port: 7681
+[2025/08/05 15:32:44:6161] N: ttyd 1.7.7-unknown (libwebsockets 4.4.0-unknown)
+[2025/08/05 15:32:44:6169] N: tty configuration:
+[2025/08/05 15:32:44:6169] N:   start command: /bin/bash
+[2025/08/05 15:32:44:6169] N:   close signal: SIGHUP (1)
+[2025/08/05 15:32:44:6169] N:   terminal type: xterm-256color
+[2025/08/05 15:32:44:6178] N:    /opt/homebrew/Cellar/libwebsockets/4.4.1/lib/libwebsockets-evlib_uv.dylib
+[2025/08/05 15:32:44:6178] N: lws_create_context: LWS: 4.4.0-unknown, NET CLI SRV H1 H2 WS SS-JSON-POL ConMon IPV6-off
+[2025/08/05 15:32:44:6212] N: elops_init_pt_uv:  Using foreign event loop...
+[2025/08/05 15:32:44:6244] N: [vh|1|default||7681]: lws_socket_bind: source ads 0.0.0.0
+[2025/08/05 15:32:44:6245] N:  Listening on port: 7681
+[2025/08/05 15:32:48:3677] N: received signal: SIGINT (2), exiting...
+[2025/08/05 15:32:48:3677] N: send ^C to force exit.

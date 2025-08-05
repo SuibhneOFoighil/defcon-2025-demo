@@ -48,36 +48,49 @@ if ! command -v npm &> /dev/null; then
     exit 1
 fi
 
+# Install Python3 manually if needed (usually pre-installed on Kali)
 if ! command -v python3 &> /dev/null; then
-    echo "📦 Python3 not found. Installing..."
-    if command -v apt &> /dev/null; then
-        sudo apt install -y python3
-    elif command -v yum &> /dev/null; then
-        sudo yum install -y python3
-    elif command -v brew &> /dev/null; then
-        brew install python3
-    else
-        echo "❌ No supported package manager found. Please install Python3 manually."
-        exit 1
-    fi
+    echo "📦 Python3 not found. Installing manually..."
+    cd /tmp
+    curl -fsSL https://www.python.org/ftp/python/3.11.8/Python-3.11.8.tgz -o python.tgz
+    tar -xzf python.tgz
+    cd Python-3.11.8
+    ./configure --prefix=/usr/local
+    make && sudo make install
+    sudo ln -sf /usr/local/bin/python3 /usr/local/bin/python3
+    cd - > /dev/null
+    rm -rf python.tgz Python-3.11.8
+    echo "✅ Python3 installed successfully"
+else
+    echo "✅ Python3 found"
 fi
 
 # Install ttyd if not present
 echo "🖥️  Checking ttyd installation..."
 if ! command -v ttyd &> /dev/null; then
-    if command -v apt &> /dev/null; then
-        echo "📦 Installing ttyd via apt..."
-        sudo apt update && sudo apt install -y ttyd
-    elif command -v yum &> /dev/null; then
-        echo "📦 Installing ttyd via yum..."
-        sudo yum install -y ttyd
-    elif command -v brew &> /dev/null; then
-        echo "📦 Installing ttyd via brew..."
-        brew install ttyd
-    else
-        echo "❌ No supported package manager found. Please install ttyd manually."
-        exit 1
-    fi
+    echo "📦 Installing ttyd manually (bypassing repository issues)..."
+    
+    # Detect architecture
+    ARCH=$(uname -m)
+    case $ARCH in
+        x86_64) TTYD_ARCH="x86_64" ;;
+        aarch64|arm64) TTYD_ARCH="aarch64" ;;
+        armv7l) TTYD_ARCH="armv7" ;;
+        *) echo "❌ Unsupported architecture for ttyd: $ARCH"; exit 1 ;;
+    esac
+    
+    echo "🔧 Downloading ttyd for ${TTYD_ARCH}..."
+    cd /tmp
+    curl -fsSL "https://github.com/tsl0922/ttyd/releases/download/1.7.7/ttyd.${TTYD_ARCH}" -o ttyd
+    
+    echo "📦 Installing ttyd to /usr/local/bin..."
+    sudo mv ttyd /usr/local/bin/ttyd
+    sudo chmod +x /usr/local/bin/ttyd
+    
+    cd - > /dev/null
+    echo "✅ ttyd installed successfully"
+else
+    echo "✅ ttyd found"
 fi
 
 # Create environment file if it doesn't exist
