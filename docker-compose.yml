@@ -1,0 +1,41 @@
+services:
+  # Ludus GUI - Next.js Application
+  ludus-gui:
+    build:
+      context: ./ludus-gui
+      dockerfile: Dockerfile
+    container_name: ludus-gui
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - LUDUS_API_BASE_URL=${LUDUS_API_BASE_URL:-http://localhost:8080}
+      - LUDUS_API_KEY=${LUDUS_API_KEY:-demo-key}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - NEXT_PUBLIC_DISABLE_AUTH=true
+    networks:
+      - ludus-network
+    restart: unless-stopped
+
+  # Shell-n-Slides - Static Web Server
+  shell-n-slides:
+    build:
+      context: ./shell-n-slides
+      dockerfile: Dockerfile
+    container_name: shell-n-slides
+    ports:
+      - "8000:8000"
+    environment:
+      - TERMINAL_HOST=host.docker.internal:7681
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - ludus-network
+    restart: unless-stopped
+
+# Note: ttyd runs directly on host system
+# Run: ./install-ttyd-host.sh to install ttyd on the host
+
+networks:
+  ludus-network:
+    driver: bridge
