@@ -1,0 +1,112 @@
+# Corrected version of range-mock.yaml
+# This file demonstrates the proper way to define VMs without oneOf validation errors
+# Key fix: Remove explicit linux: false and macOS: false from Windows VMs
+
+ludus:
+  - vm_name: "{{ range_id }}-ad-dc-win2019-server-x64"
+    hostname: "{{ range_id }}-DC01-2019"
+    template: win2019-server-x64-template
+    vlan: 10
+    ip_last_octet: 11
+    force_ip: true
+    ram_gb: 8
+    cpus: 4
+    windows:  # Only include windows property for Windows VMs
+      sysprep: false
+      gpos:
+        - disable_defender
+        - anon_share_access
+    domain:
+      fqdn: ludus.network
+      role: primary-dc
+    testing:
+      snapshot: true
+      block_internet: true
+    roles:
+      - geerlingguy.docker
+    role_vars:
+      docker_edition: ce
+    ansible_groups:
+      - customgroup1
+    dns_rewrites:
+      - example.com
+    unmanaged: false
+
+  - vm_name: "{{ range_id }}-ad-win11-22h2-enterprise-x64-1"
+    hostname: "{{ range_id }}-WIN11-22H2-1"
+    template: win11-22h2-x64-enterprise-template
+    vlan: 10
+    ip_last_octet: 21
+    ram_gb: 8
+    cpus: 4
+    windows:  # Only include windows property for Windows VMs
+      sysprep: false
+      chocolatey_packages:
+        - vscodium
+      office_version: 2019
+      office_arch: 64bit
+    domain:
+      fqdn: ludus.network
+      role: member
+
+  - vm_name: "{{ range_id }}-elastic"
+    hostname: "{{ range_id }}-elastic"
+    template: debian-12-x64-server-template
+    vlan: 20
+    ip_last_octet: 2
+    ram_gb: 8
+    cpus: 4
+    linux: true  # Only include linux property for Linux VMs
+    roles:
+      - badsectorlabs.ludus_elastic_container
+
+  - vm_name: "{{ range_id }}-kali"
+    hostname: "{{ range_id }}-kali"
+    template: kali-x64-desktop-template
+    vlan: 99
+    ip_last_octet: 1
+    ram_gb: 8
+    cpus: 4
+    linux:  # Only include linux property for Linux VMs
+      packages:
+        - curl
+        - python3
+    testing:
+      snapshot: false
+      block_internet: false
+
+# Optional sections (these are fine as-is)
+global_role_vars:
+  docker_edition: ce
+
+router:
+  vm_name: "{{ range_id }}-router-debian11-x64"
+  hostname: "{{ range_id }}-router"
+  template: debian-11-x64-server-template
+  ram_gb: 2
+  ram_min_gb: 1
+  cpus: 2
+
+network: 
+  inter_vlan_default: REJECT
+  external_default: ACCEPT
+  rules:
+    - name: Only allow windows to kali on 443
+      vlan_src: 10
+      vlan_dst: 99
+      protocol: tcp
+      ports: 443
+      action: ACCEPT
+
+defaults:
+  snapshot_with_RAM: true
+  stale_hours: 0
+  ad_domain_functional_level: Win2012R2
+  ad_forest_functional_level: Win2012R2
+  ad_domain_admin: domainadmin
+  ad_domain_admin_password: password
+  ad_domain_user: domainuser
+  ad_domain_user_password: password
+  ad_domain_safe_mode_password: password
+  timezone: America/New_York
+  enable_dynamic_wallpaper: true 

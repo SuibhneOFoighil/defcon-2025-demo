@@ -1,0 +1,477 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-size: 20px;
+}
+
+#content-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#top-pane {
+    flex: 0 0 auto;
+    background-color: #1c1e20;
+    padding: 10px;
+    position: relative;
+    z-index: 1000;
+}
+
+#slideshow {
+    flex: 1;
+    overflow-y: auto;
+    /* Add vertical scroll */
+    overflow-x: hidden;
+    /* Prevent horizontal scroll */
+    position: relative;
+}
+
+#separator {
+    height: 18px;
+    background-color: #444;
+    cursor: row-resize;
+    position: relative;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#separator::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -5px;
+    bottom: -5px;
+    cursor: row-resize;
+}
+
+.separator-handle {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+    height: 14px;
+    width: 40px;
+    background: rgba(80,80,80,0.7);
+    border-radius: 7px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    cursor: row-resize;
+}
+
+.separator-handle .handle-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: #bbb;
+    border-radius: 50%;
+    margin: 0 2px;
+    opacity: 0.9;
+}
+
+.separator-handle:hover {
+    background: rgba(120,120,120,0.8);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.separator-handle:active {
+    background: rgba(160,160,160,0.9);
+}
+
+
+#terminal {
+    height: 30%;
+    min-height: 100px;
+    overflow: hidden;
+}
+
+#terminal iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.reveal {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: auto;
+    /* Allow reveal content to expand */
+}
+
+.reveal .slides {
+    text-align: left;
+    /* width and height removed to allow JS scaling */
+    /* Allow slides to expand */
+    overflow-x: hidden !important;
+    scrollbar-width: none; /* Firefox */
+}
+
+.reveal .slides::-webkit-scrollbar {
+    display: none !important; /* Chrome, Safari */
+}
+
+.reveal .slides section {
+    text-align: left;
+    padding: 20px !important;
+    /* height removed to allow JS scaling */
+    /* Allow each slide to expand */
+    max-width: 100%;
+    max-height: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden !important;
+    scrollbar-width: none; /* Firefox */
+}
+
+.reveal .slides section::-webkit-scrollbar {
+    display: none !important; /* Chrome, Safari */
+}
+
+/* Custom scrollbar styles for slides and sections */
+.reveal .slides,
+.reveal .slides section {
+    scrollbar-width: thin;
+    scrollbar-color: #e9c706 #222;
+}
+
+.reveal .slides::-webkit-scrollbar,
+.reveal .slides section::-webkit-scrollbar {
+    width: 10px;
+    background: #222;
+}
+
+.reveal .slides::-webkit-scrollbar-thumb,
+.reveal .slides section::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 8px;
+    border: 2px solid #222;
+}
+
+.reveal .slides::-webkit-scrollbar-thumb:hover,
+.reveal .slides section::-webkit-scrollbar-thumb:hover {
+    background: #e9c706;
+}
+
+.reveal .slides::-webkit-scrollbar-track,
+.reveal .slides section::-webkit-scrollbar-track {
+    background: #222;
+    border-radius: 8px;
+}
+
+
+.reveal h1 {
+    font-size: 2.5em;
+}
+
+.reveal h2 {
+    font-size: 2.2em;
+}
+
+.reveal h3 {
+    font-size: 1.9em;
+}
+
+.reveal h4 {
+    font-size: 1.6em;
+}
+
+.reveal h5 {
+    font-size: 1.3em;
+}
+
+.reveal h6 {
+    font-size: 1.1em;
+}
+
+.reveal p,
+.reveal ul,
+.reveal ol {
+    text-align: left;
+    margin-bottom: 0.8em;
+    font-size: 1.1em;
+}
+
+.reveal ul,
+.reveal ol {
+    padding-left: 1.5em;
+}
+
+.reveal pre,
+.reveal code {
+    font-size: 1em;
+    max-height: none;
+}
+
+.floating-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1001;
+    padding: 10px 20px;
+    background-color: #e9c706;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.floating-button:hover {
+    background-color: #ffd700;
+}
+
+.reset-button {
+    padding: 15px 30px;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: #1dc617;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.reset-button:hover {
+    background-color: #82ff66;
+}
+
+.spinner {
+    position: absolute;
+    top: 10px;
+    right: 150px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #e9c706;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 1002;
+}
+
+#logo {
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+    z-index: 1000;
+    width: 80px;
+    height: 40px;
+    background-image: url('images/logo-light.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.down-arrow {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.down-arrow::after {
+    content: '▼';
+    font-size: 20px;
+    color: #fff;
+}
+
+.down-arrow:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+body.resizing {
+    cursor: row-resize !important;
+    user-select: none;
+}
+
+body.resizing iframe {
+    pointer-events: none;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+
+    body,
+    html {
+        font-size: 18px;
+    }
+
+    .reveal .slides {
+        width: 98% !important;
+    }
+
+    .reveal .slides section {
+        padding: 15px !important;
+    }
+}
+
+@media (max-width: 768px) {
+
+    body,
+    html {
+        font-size: 16px;
+    }
+
+    .reveal .slides {
+        width: 100% !important;
+    }
+
+    .reveal .slides section {
+        padding: 10px !important;
+    }
+}
+
+/* Scrollbar styles */
+#slideshow::-webkit-scrollbar {
+    width: 10px;
+}
+
+#slideshow::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+#slideshow::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+#slideshow::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* --- Clickable Command Styling --- */
+.clickable-command {
+    cursor: pointer;
+    background: #232a36;
+    color: #e9c706;
+    border: 1px solid #e9c706;
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin: 0 2px;
+    font-weight: bold;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.10);
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.clickable-command:hover, .clickable-command:focus {
+    background: #e9c706;
+    color: #232a36;
+    box-shadow: 0 2px 8px rgba(233,199,6,0.15);
+    outline: none;
+    text-decoration: none;
+}
+
+code.clickable-command {
+    font-family: inherit;
+    font-size: 1em;
+}
+
+/* Ludus GUI iframe styles */
+#ludus-gui-iframe {
+    background: white !important;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease;
+}
+
+#ludus-gui-iframe:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+#ludus-deployment {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    border-radius: 8px;
+    margin: 0 !important;
+    padding: 10px !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Ensure Ludus iframe scales properly when terminal is hidden */
+#ludus-deployment #ludus-gui-iframe {
+    min-height: calc(100vh - 120px) !important; /* Account for header and footer */
+}
+
+#ludus-deployment h3 {
+    color: #e9c706 !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#ludus-deployment p {
+    color: #ccc !important;
+}
+
+/* Terminal ready slide styles */
+#terminal-ready, #tutorial-start {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border-radius: 8px;
+}
+
+#terminal-ready .clickable-command, #tutorial-start .clickable-command {
+    font-size: 1.1em !important;
+    padding: 4px 12px !important;
+}
+
+/* Smooth transitions for terminal visibility changes */
+#terminal, #separator {
+    transition: all 0.3s ease-in-out;
+}
+
+#slideshow {
+    transition: height 0.3s ease-in-out, flex 0.3s ease-in-out;
+}
+
+/* Fix navigation button overlap with logo */
+.reveal .controls {
+    bottom: 60px !important; /* Move controls up to avoid logo */
+    right: 20px !important;
+    z-index: 999 !important; /* Below logo but above other elements */
+}
+
+/* Logo positioning moved above to avoid navigation overlap */
+
+/* Ensure slides fill viewport properly when terminal is hidden */
+.reveal .slides {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.reveal .slides section {
+    width: 100% !important;
+    height: 100% !important;
+}

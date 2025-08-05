@@ -1,0 +1,41 @@
+# yaml-language-server: $schema=https://docs.ludus.cloud/schemas/range-config.json
+# Simple test fixture for basic router-VLAN public rule testing
+
+ludus:
+  - vm_name: "{{ range_id }}-web-server"
+    hostname: "{{ range_id }}-web"
+    template: debian-12-x64-server-template
+    vlan: 10
+    ip_last_octet: 10
+    ram_gb: 4
+    cpus: 2
+    linux: true
+
+router:
+  vm_name: "{{ range_id }}-router"
+  hostname: "{{ range_id }}-router"
+  template: debian-11-x64-server-template
+  ram_gb: 2
+  cpus: 2
+
+network:
+  inter_vlan_default: REJECT
+  external_default: ACCEPT
+  rules:
+    - name: "Internet to Web Server"
+      vlan_src: public
+      vlan_dst: 10
+      protocol: tcp
+      ports: "80,443"
+      action: ACCEPT
+    
+    - name: "Web Server to Internet"
+      vlan_src: 10
+      vlan_dst: public
+      protocol: tcp
+      ports: "all"
+      action: ACCEPT
+
+defaults:
+  snapshot_with_RAM: true
+  stale_hours: 0

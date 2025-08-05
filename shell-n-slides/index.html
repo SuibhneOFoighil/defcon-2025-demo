@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESV x Ludus - Hack an IP Camera Workshop</title>
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/black.css">
+    <link rel="stylesheet" href="css/enjoyhint.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="content-wrapper">
+        <div id="top-pane">
+            <button id="resetCameraButton" class="floating-button" onclick="resetCamera()">Reset Camera</button>
+            <div id="spinner" class="spinner" style="display: none;"></div>
+        </div>
+
+        <div id="slideshow">
+            <div class="reveal">
+                <div class="slides">
+                    <!-- Slides will be loaded here dynamically -->
+                </div>
+            </div>
+        </div>
+        <div id="separator"><div class="separator-handle" title="Drag to resize"><span class="handle-dot"></span><span class="handle-dot"></span><span class="handle-dot"></span></div></div>
+        <div id="terminal">
+            <iframe id="terminal-iframe" frameborder="0"></iframe>
+        </div>
+    </div>
+    <a id="logo" href="https://ludus.cloud" target="_blank" rel="noopener noreferrer"></a>
+    <script src="scripts/reveal.js"></script>
+    <script src="scripts/zoom.js"></script>
+    <script src="scripts/axios.min.js"></script>
+    <script src="scripts/marked.min.js"></script>
+    <script src="scripts/jquery-3.5.1.min.js"></script>
+    <script src="scripts/jquery.scrollTo.min.js"></script>
+    <script src="scripts/enjoyhint.js"></script>
+    <script src="script.js"></script>
+    <script src="scripts/fit-to-container.js"></script>
+    <script>
+      // Ensure resizer and fit-to-container are initialized on load
+      window.addEventListener('DOMContentLoaded', function() {
+        if (typeof initializeResizer === 'function') {
+          initializeResizer();
+        }
+        if (typeof initializeFitToContainer === 'function') {
+          initializeFitToContainer();
+        }
+        Reveal.on('slidechanged', (event) => {
+          fitSlidesToContainer();
+        });
+      });
+    </script>
+</body>
+
+</html>

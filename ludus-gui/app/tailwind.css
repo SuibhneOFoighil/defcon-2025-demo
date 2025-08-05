@@ -1,0 +1,497 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* Base colors */
+    --background: 0 0% 99%; /* colors.monochrome.offwhite */
+    --foreground: 0 0% 13%; /* colors.monochrome.gray95 */
+
+    /* Component colors */
+    --card: 0 0% 100%; /* colors.monochrome.white */
+    --card-foreground: 0 0% 13%; /* colors.monochrome.gray95 */
+    --popover: 0 0% 100%; /* colors.monochrome.white */
+    --popover-foreground: 0 0% 13%; /* colors.monochrome.gray95 */
+    --primary: 19 84% 43%; /* colors.orange.100 */
+    --primary-foreground: 0 0% 100%; /* colors.monochrome.white */
+    --secondary: 0 0% 94%; /* colors.monochrome.gray10 */
+    --secondary-foreground: 0 0% 13%; /* colors.monochrome.gray95 */
+    --muted: 0 0% 94%; /* colors.monochrome.gray10 */
+    --muted-foreground: 0 0% 45%; /* colors.monochrome.gray50 */
+    --accent: 221 75% 61%; /* colors.blue[1] */
+    --accent-foreground: 0 0% 100%; /* colors.monochrome.white */
+    --destructive: 0 59% 49%; /* colors.red.DEFAULT */
+    --destructive-foreground: 0 0% 100%; /* colors.monochrome.white */
+    --border: 0 0% 88%; /* colors.monochrome.gray25 */
+    --input: 0 0% 88%; /* colors.monochrome.gray25 */
+    --ring: 19 64% 72%; /* colors.orange.50 */
+    --success: 145 63% 42%; /* colors.success.DEFAULT */
+
+    --radius: 0.25rem;
+
+    /* Form control specific variables */
+    --input-bg: 0 0% 97%; /* colors.monochrome.gray5 */
+    --input-border: 0 0% 88%; /* colors.monochrome.gray25 */
+    --input-text: 0 0% 13%; /* colors.monochrome.gray95 */
+    --input-placeholder: 0 0% 50%; /* colors.monochrome.gray50 */
+    --input-focus-border: 19 84% 43%; /* colors.orange.100 */
+    --input-focus-ring: 19 64% 72%; /* colors.orange.50 */
+    --input-disabled-bg: 0 0% 94%; /* colors.monochrome.gray10 */
+    --input-disabled-text: 0 0% 45%; /* colors.monochrome.gray50 */
+
+    /* Button specific variables */
+    --button-primary-bg: 19 84% 43%; /* colors.orange.100 */
+    --button-primary-text: 0 0% 100%; /* colors.monochrome.white */
+    --button-primary-hover: 19 64% 57%; /* colors.orange.75 */
+    --button-secondary-bg: 0 0% 94%; /* colors.monochrome.gray10 */
+    --button-secondary-text: 0 0% 13%; /* colors.monochrome.gray95 */
+    --button-secondary-hover: 0 0% 88%; /* colors.monochrome.gray25 */
+
+    /* Sidebar specific variables */
+    --sidebar-bg: 0 0% 100%; /* colors.monochrome.white */
+    --sidebar-fg: 0 0% 13%; /* colors.monochrome.gray95 */
+    --sidebar-muted: 0 0% 50%; /* colors.monochrome.gray50 */
+    --sidebar-highlight: 19 84% 43%; /* colors.orange.100 */
+    --sidebar-border: 0 0% 88%; /* colors.monochrome.gray25 */
+    --card-border: 0 0% 88%; /* colors.monochrome.gray25 */
+    --status-running: 145 63% 42%; /* colors.success.DEFAULT */
+    --status-stopped: 0 84% 49%; /* colors.red.DEFAULT */
+    --status-suspended: 42 96% 59%; /* colors.yellow.DEFAULT */
+    --status-draft: 221 75% 61%; /* colors.blue[1] */
+    --status-draft-foreground: 0 0% 100%; /* colors.monochrome.white */
+
+    /* Network topology specific colors */
+    --topology-background: 0 0% 99%; /* colors.monochrome.offwhite */
+    --topology-foreground: 0 0% 13%; /* colors.monochrome.gray95 */
+    --topology-node-bg: 0 0% 100%; /* colors.monochrome.white */
+    --topology-node-border: 0 0% 88%; /* colors.monochrome.gray25 */
+    --topology-vlan-bg: 0 0% 97%; /* colors.monochrome.gray5 */
+    --topology-edge: 0 0% 45%; /* colors.monochrome.gray50 */
+    --topology-dot: 0 0% 88%; /* colors.monochrome.gray25 */
+
+    /* Context menu colors */
+    --context-menu-bg: 0 0% 100%; /* colors.monochrome.white */
+    --context-menu-border: 0 0% 88%; /* colors.monochrome.gray25 */
+    --context-menu-hover: 0 0% 94%; /* colors.monochrome.gray10 */
+    --context-menu-text: 0 0% 13%; /* colors.monochrome.gray95 */
+    --context-menu-icon: 0 0% 50%; /* colors.monochrome.gray50 */
+    --context-menu-separator: 0 0% 88%; /* colors.monochrome.gray25 */
+    --context-menu-destructive: 0 59% 49%; /* colors.red.DEFAULT */
+
+    /* Context menu sizing */
+    --context-menu-item-padding-x: 12px;
+    --context-menu-item-padding-y: 8px;
+    --context-menu-icon-size: 16px;
+    --context-menu-icon-spacing: 12px;
+
+    /* Context menu animation */
+    --context-menu-animation-duration: 150ms;
+    --context-menu-animation-timing: ease-out;
+
+    /* Logs modal colors */
+    --logs-bg: 0 0% 97%; /* Light gray background for light mode */
+    --logs-text: 0 0% 13%; /* Dark text for light mode */
+    --logs-border: 0 0% 88%; /* Light border */
+    --logs-timestamp: 0 0% 45%; /* Muted timestamp color */
+    --logs-info: 221 75% 61%; /* Blue for info logs */
+    --logs-warning: 42 96% 59%; /* Yellow for warning logs */
+    --logs-error: 0 84% 49%; /* Red for error logs */
+    --node-width: 400px;
+  }
+
+  .dark {
+    /* Base colors - improved hierarchy */
+    --background: 0 0% 3%; /* colors.monochromeDark.black - main content area */
+    --foreground: 0 0% 98%; /* Slightly softer than pure white for better readability */
+
+    /* Component colors - enhanced layering */
+    --card: 0 0% 7%; /* Slightly darker than before for better separation from background */
+    --card-foreground: 0 0% 98%; /* colors.monochromeDark.white */
+    --popover: 0 0% 11%; /* Lighter than card for proper layering */
+    --popover-foreground: 0 0% 98%; /* colors.monochromeDark.white */
+    --primary: 26 94% 54%; /* colors.orangeDark.100 */
+    --primary-foreground: 0 0% 100%; /* colors.monochromeDark.white */
+    --secondary: 0 0% 15%; /* Slightly lighter for better hierarchy */
+    --secondary-foreground: 0 0% 95%; /* Slightly softer white */
+    --muted: 0 0% 11%; /* Better contrast against card backgrounds */
+    --muted-foreground: 0 0% 65%; /* Better readability while maintaining hierarchy */
+    --accent: 224 100% 69%; /* colors.blueDark[1] */
+    --accent-foreground: 0 0% 100%; /* colors.monochromeDark.white */
+    --destructive: 0 59% 49%; /* colors.redDark.DEFAULT */
+    --destructive-foreground: 0 0% 100%; /* colors.monochromeDark.white */
+    --border: 0 0% 18%; /* More visible borders for better component separation */
+    --input: 0 0% 20%; /* Subtle but visible input borders - not competing with focus ring */
+    --ring: 26 80% 27%; /* colors.orangeDark.50 */
+    --success: 141 58% 55%; /* colors.success.dark */
+
+    /* Form control specific variables - improved contrast */
+    --input-bg: 0 0% 5%; /* Slightly lighter than pure black for better UX */
+    --input-border: 0 0% 30%; /* Even more visible borders for better outline contrast */
+    --input-text: 0 0% 95%; /* Softer white for better readability */
+    --input-placeholder: 0 0% 55%; /* Better contrast for placeholders */
+    --input-focus-border: 26 94% 54%; /* colors.orangeDark.100 */
+    --input-focus-ring: 26 80% 27%; /* colors.orangeDark.50 */
+    --input-disabled-bg: 0 0% 8%; /* More noticeable disabled state */
+    --input-disabled-text: 0 0% 45%; /* Better disabled text contrast */
+
+    /* Button specific variables - enhanced hierarchy */
+    --button-primary-bg: 26 94% 54%; /* colors.orangeDark.100 */
+    --button-primary-text: 0 0% 100%; /* colors.monochromeDark.white */
+    --button-primary-hover: 26 81% 40%; /* colors.orangeDark.75 */
+    --button-secondary-bg: 0 0% 15%; /* Better contrast against cards */
+    --button-secondary-text: 0 0% 95%; /* Softer white */
+    --button-secondary-hover: 0 0% 22%; /* More noticeable hover state */
+
+    /* Sidebar specific variables - improved layering */
+    --sidebar-bg: 0 0% 5%; /* Darker than cards for proper hierarchy */
+    --sidebar-fg: 0 0% 95%; /* Softer white for better readability */
+    --sidebar-muted: 0 0% 60%; /* Better contrast for secondary text */
+    --sidebar-highlight: 26 94% 54%; /* colors.orangeDark.100 */
+    --sidebar-border: 0 0% 15%; /* More visible sidebar borders */
+    --card-border: 0 0% 18%; /* Consistent with main border */
+    --status-running: 141 58% 55%; /* colors.success.dark */
+    --status-stopped: 0 84% 49%; /* colors.redDark.DEFAULT */
+    --status-suspended: 42 96% 59%; /* colors.yellowDark.DEFAULT */
+    --status-draft: 224 100% 69%; /* colors.blueDark[1] */
+    --status-draft-foreground: 0 0% 100%; /* colors.monochromeDark.white */
+
+    /* Network topology specific colors - better hierarchy */
+    --topology-background: 0 0% 4%; /* Slightly different from main background */
+    --topology-foreground: 0 0% 95%; /* Softer white */
+    --topology-node-bg: 0 0% 8%; /* Better contrast against topology background */
+    --topology-node-border: 0 0% 22%; /* More visible node borders */
+    --topology-vlan-bg: 0 0% 6%; /* Subtle variation for VLAN areas */
+    --topology-edge: 0 0% 55%; /* Better visibility for connections */
+    --topology-dot: 0 0% 25%; /* More visible dots */
+
+    /* Node type colors */
+    --node-macos: 26 94% 54%; /* colors.orangeDark.100 */
+    --node-kali: 224 100% 69%; /* colors.blueDark.DEFAULT */
+    --node-defender: 0 59% 49%; /* colors.redDark.DEFAULT */
+
+    /* Icon backgrounds - improved contrast */
+    --icon-bg-macos: 26 70% 12%; /* Darker for better contrast */
+    --icon-bg-kali: 224 70% 12%; /* Darker for better contrast */
+    --icon-bg-defender: 0 70% 12%; /* Darker for better contrast */
+
+    /* Context menu colors - enhanced layering */
+    --context-menu-bg: 0 0% 10%; /* Lighter than cards for proper layering */
+    --context-menu-border: 0 0% 22%; /* More visible borders */
+    --context-menu-hover: 0 0% 18%; /* Better hover contrast */
+    --context-menu-text: 0 0% 95%; /* Softer white */
+    --context-menu-icon: 0 0% 60%; /* Better icon visibility */
+    --context-menu-separator: 0 0% 18%; /* More visible separators */
+    --context-menu-destructive: 0 59% 49%; /* colors.redDark.DEFAULT */
+
+    /* Logs modal colors - improved readability */
+    --logs-bg: 0 0% 6%; /* Better contrast against cards */
+    --logs-text: 0 0% 92%; /* Softer for long-form reading */
+    --logs-border: 0 0% 18%; /* Consistent with other borders */
+    --logs-timestamp: 0 0% 65%; /* Better timestamp visibility */
+    --logs-info: 224 100% 69%; /* Blue for info logs in dark mode */
+    --logs-warning: 42 96% 59%; /* Yellow for warning logs */
+    --logs-error: 0 84% 60%; /* Red for error logs in dark mode */
+    --node-width: 400px;
+  }
+
+  /* Add smooth transitions for all elements */
+  * {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+
+  /* Override default border color to use theme border color */
+  *, ::after, ::before {
+    border-color: hsl(var(--border));
+  }
+}
+
+@theme {
+  --font-family-sans: "var(--font-inter)", sans-serif;
+  --font-family-heading: "var(--font-barlow)", sans-serif;
+  --font-family-mono: ui-monospace, "SFMono-Regular", "Menlo", "Monaco",
+    "Consolas", "Liberation Mono", "Courier New", monospace;
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --breakpoint-2xl: 1400px;
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-spin: spin 1s linear infinite;
+  --animate-ping: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-bounce: bounce 1s infinite;
+}
+
+@layer components {
+  /* Exclude transition for specific elements */
+  .no-transition {
+    transition: none !important;
+  }
+
+  /* Form control styles */
+  .form-input {
+    @apply w-full rounded-md border px-3 py-2 text-sm;
+    background-color: hsl(var(--input-bg));
+    border-color: hsl(var(--input-border));
+    color: hsl(var(--input-text));
+  }
+
+  .form-input::placeholder {
+    color: hsl(var(--input-placeholder));
+  }
+
+  .form-input:focus {
+    @apply outline-none;
+    border-color: hsl(var(--input-focus-border));
+    box-shadow: 0 0 0 2px hsla(var(--input-focus-ring), 0.25);
+  }
+
+  .form-input:disabled {
+    background-color: hsl(var(--input-disabled-bg));
+    color: hsl(var(--input-disabled-text));
+    cursor: not-allowed;
+  }
+
+  /* Button styles */
+  .btn-primary {
+    @apply rounded-md px-4 py-2 text-sm font-medium;
+    background-color: hsl(var(--button-primary-bg));
+    color: hsl(var(--button-primary-text));
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background-color: hsl(var(--button-primary-hover));
+  }
+
+  .btn-secondary {
+    @apply rounded-md px-4 py-2 text-sm font-medium;
+    background-color: hsl(var(--button-secondary-bg));
+    color: hsl(var(--button-secondary-text));
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background-color: hsl(var(--button-secondary-hover));
+  }
+
+  .btn-outline {
+    @apply rounded-md border px-4 py-2 text-sm font-medium;
+    border-color: hsl(var(--primary));
+    color: hsl(var(--primary));
+    background-color: transparent;
+  }
+
+  .btn-outline:hover:not(:disabled) {
+    background-color: hsla(var(--primary), 0.1);
+  }
+
+  /* Enhanced button outline for dark mode */
+  .btn-outline-enhanced {
+    @apply rounded-md border px-4 py-2 text-sm font-medium;
+    border-color: hsl(var(--border));
+    color: hsl(var(--foreground));
+    background-color: transparent;
+  }
+
+  .btn-outline-enhanced:hover:not(:disabled) {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+    border-color: hsl(var(--primary));
+  }
+
+  .dark .btn-outline-enhanced {
+    border-color: hsl(var(--border));
+  }
+
+  .dark .btn-outline-enhanced:hover:not(:disabled) {
+    border-color: hsl(var(--primary));
+  }
+}
+
+@layer utilities {
+  /* Context menu styling */
+  [data-context-menu] {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transform-origin: var(--transform-origin, top center);
+    backface-visibility: hidden;
+  }
+
+  .dark [data-context-menu] {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Ensure text is left-aligned in context menu items */
+  [data-context-menu] button span.flex-1 {
+    text-align: left;
+  }
+
+  /* Text shadow utility */
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  .text-shadow-none {
+    text-shadow: none;
+  }
+
+  /* Button shadow utilities */
+  .shadow-button {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  }
+
+  .dark .shadow-button {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .animate-in {
+    animation: toastIn 0.3s ease-out forwards;
+  }
+
+  .animate-out {
+    animation: toastOut 0.2s ease-in forwards;
+  }
+
+  .slide-in-from-right-full {
+    --tw-enter-translate-x: 100%;
+  }
+
+  .context-menu-enter {
+    animation: contextMenuIn 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transform-origin: top center;
+    will-change: transform, opacity;
+  }
+
+  .context-menu-exit {
+    animation: contextMenuOut 150ms ease-out forwards;
+    transform-origin: top center;
+    will-change: transform, opacity;
+  }
+}
+
+/* Keyframes */
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+@keyframes contextMenuIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes contextMenuOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes toastIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes toastOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@utility container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1400px;
+  }
+}

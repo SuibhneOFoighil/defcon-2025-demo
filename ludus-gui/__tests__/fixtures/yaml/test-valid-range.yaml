@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=https://docs.ludus.cloud/schemas/range-config.json
+
+ludus:
+  - vm_name: "{{ range_id }}-test-vm"
+    hostname: "{{ range_id }}-test"
+    template: debian-12-x64-server-template
+    vlan: 10
+    ip_last_octet: 10
+    ram_gb: 4
+    cpus: 2
+    linux: true 

@@ -1,0 +1,152 @@
+---
+description: 
+globs: *.stories.tsx
+alwaysApply: false
+---
+# Storybook Story Writing Guide
+
+## Core Tenets
+- **Living Documentation:** Stories sync documentation with implementation.
+- **Development Playground:** Facilitate isolated component development and review.
+- **Test Foundation:** Serve as the source for visual, interaction, and accessibility tests.
+- **Consistency & Maintainability:** Standardized stories are easier to use and maintain.
+
+---
+
+## Essential Rules for Writing Stories
+
+### 1. File & Format
+- **Naming:** `.stories.tsx` (collocated in `stories/` mirroring `app/components/`).
+- **Format:** Use latest Component Story Format (CSF3).
+
+### 2. `meta` Object (Default Export) - The Story's Blueprint
+- `title`: **MUST** be hierarchical (e.g., `UI/Button`, `Features/Auth/LoginForm`) for sidebar organization.
+- `component`: **MUST** reference the component being documented.
+- `tags: ['autodocs']`: **MUST** include. This enables the "Docs" tab for automatic documentation generation from JSDoc, `argTypes`, and stories. (Can be set globally in `.storybook/preview.js` via `tags: ["autodocs"]` as well).
+- `parameters`: **SHOULD** define global story aspects:
+    - `layout`: (e.g., `'centered'` for components, `'fullscreen'` for pages).
+    - Other parameters like `backgrounds`, `viewport` as needed.
+- `argTypes`: **SHOULD** define for all relevant props to provide interactive controls and API documentation:
+    - `control`: Specify UI control type (e.g., `select`, `boolean`, `text`).
+    - `options`: For `select` or `radio` controls.
+    - `action: 'handlerName'`: **MUST** for event handlers (e.g., `onClick: { action: 'clicked' }`) to log to Actions panel.
+    - `description`: **SHOULD** include to explain prop purpose and usage.
+    - `table: { disable: true }`: To hide args not meant for direct Storybook control.
+- `decorators`: **CAN** be used to wrap stories with context providers (theme, form, routing, etc.).
+- `subcomponents`: **SHOULD** list for compound components to aid Autodocs linking.
+
+### 3. Story Objects (Named Exports) - Individual Showcases
+- **Naming:** **MUST** be PascalCase and descriptive (e.g., `Default`, `WithIcon`, `ErrorState`, `LoadingState`).
+- `args`: **MUST** define the props for the specific state/variant the story represents. Keep focused.
+- `render` function: **AVOID** if possible. Prefer simple `args` definition. Use **ONLY** for complex rendering logic or story-specific state not achievable with `args`.
+- `play` function: **MUST** be included for stories representing interactive components or states to test key user interactions. For purely presentational stories with no interactions, `play` functions may be omitted.
+    - Use utilities from `@storybook/test` (e.g., `within`, `userEvent`, `expect`, `fn`, `step`).
+    - Callbacks used in `play` function assertions (e.g., `onClick`) **MUST** be defined in `args` using `fn()` from `@storybook/test` (e.g., `onClick: fn()`).
+- `parameters`, `argTypes`, `globals`: Can be defined at the story level to override `meta` configurations or set story-specific global values if necessary.
+
+### 4. Coverage & Accessibility
+- **States & Variants:** **MUST** comprehensively cover default state, all defined variants, sizes, disabled/loading/error states, and key edge cases.
+- **Accessibility (`a11y`):**
+    - Design and implement components/stories with accessibility as a priority.
+    - Interactive elements without visible text (e.g., icon-only buttons) **MUST** have an `aria-label` provided and documented.
+    - Utilize the Storybook "Accessibility" addon (A11y) to test and aim for zero WCAG violations.
+
+---
+
+## Quick Example (CSF3)
+
+```tsx
+import type { Meta, StoryObj } from '@storybook/react';
+import { Button } from '@/components/ui/button';
+import { fn, userEvent, within, expect } from '@storybook/test';
+import { Sun } from 'lucide-react'; // Example icon
+
+const meta = {
+  title: 'UI/Button',
+  component: Button,
+  tags: ['autodocs'], // Enables automatic documentation
+  parameters: { layout: 'centered' },
+  argTypes: {
+    variant: { control: 'select', options: ['default', 'destructive'], description: 'Button visual style.' },
+    onClick: { action: 'clicked', description: 'Optional click handler.' }, // Logs to Actions panel
+    children: { control: 'text', description: 'Button label or content.' },
+  },
+} satisfies Meta<typeof Button>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+// Default state story (might not need a play function if non-interactive by default)
+export const Default: Story = { args: { children: 'Default Button' } };
+
+// Destructive variant story (example of adding a play function)
+export const Destructive: Story = {
+  args: { variant: 'destructive', children: 'Delete Item', onClick: fn() },
+  play: async ({ canvasElement, args }) => {
+    const button = await within(canvasElement).findByRole('button', { name: /Delete Item/i });
+    await userEvent.click(button);
+    expect(args.onClick).toHaveBeenCalledTimes(1);
+  },
+};
+
+// Icon-only button story with accessibility considerations and interaction
+export const IconButton: Story = {
+  args: { size: 'icon', children: <Sun />, 'aria-label': 'Toggle Theme', onClick: fn() }, // aria-label is crucial
+  argTypes: { children: { control: false } }, // Icon is not meant to be controlled as text
+  play: async ({ canvasElement, args }) => {
+    const button = await within(canvasElement).findByRole('button', { name: /Toggle Theme/i });
+    await userEvent.click(button);
+    expect(args.onClick).toHaveBeenCalledTimes(1);
+  },
+};
+
+// Story explicitly for interaction testing
+export const ClickInteraction: Story = {
+  args: { children: 'Click Test Button', onClick: fn() }, // onClick uses fn() for spying
+  play: async ({ canvasElement, args }) => {
+    const button = await within(canvasElement).findByRole('button', { name: /Click Test Button/i });
+    await userEvent.click(button);
+    expect(args.onClick).toHaveBeenCalledTimes(1);
+  },
+};
+```
+
+---
+
+## Key Best Practices
+- **Focus & Clarity:** Each story demonstrates one state, variant, or interaction.
+- **Descriptive Naming:** Use clear names for `meta.title` and stories.
+- **Effective Controls:** Configure `argTypes` for useful Storybook UI controls.
+- **Thorough Prop Docs:** Use `argTypes.description` for all relevant props.
+- **Organization:** Hierarchical `title` for a navigable sidebar.
+- **Minimalism:** Keep stories concise, showing only necessary code/args.
+- **Interaction Tests (`play` functions):** **Prioritize** including `play` functions for stories of interactive components to document behavior and enable automated tests.
+- **Review Autodocs:** Verify the generated "Docs" tab for clarity and completeness.
+
+---
+
+## Summary Table
+| Aspect                          | Requirement | Why?                                                    |
+|---------------------------------|-------------|---------------------------------------------------------|
+| `.stories.tsx`, CSF3 Format     | MUST        | Convention, tooling, modern features.                   |
+| Hierarchical `meta.title`       | MUST        | Sidebar organization.                                   |
+| `meta.component` & `tags`       | MUST        | Links component, enables Autodocs.                      |
+| `argTypes` (controls, actions)  | SHOULD/MUST | Interactivity, API docs, event logging.                 |
+| Descriptive Story Names         | MUST        | Clarity of purpose.                                     |
+| Focused `story.args`            | MUST        | Defines specific state.                                 |
+| Cover all relevant states       | MUST        | Comprehensive docs & test base.                         |
+| `play` functions for interactions | MUST (interactive) | Behavioral docs & automated tests for interactive parts. |
+| `fn()` for spied test args      | MUST (test) | Allows asserting callback calls.                        |
+| Accessibility (`aria-*`, A11y)  | MUST        | Inclusivity, WCAG compliance.                           |
+
+---
+
+## References
+- [Storybook: Writing Stories](mdc:https:/storybook.js.org/docs/writing-stories)
+- [Storybook: Component Story Format (CSF)](mdc:https:/storybook.js.org/docs/api/csf)
+- [Storybook: `play` function & Interaction Tests](mdc:https:/storybook.js.org/docs/writing-stories/play-function)
+- [Storybook: `argTypes`](mdc:https:/storybook.js.org/docs/api/argtypes)
+- [Storybook: Autodocs](mdc:https:/storybook.js.org/docs/writing-docs/autodocs)
+- [Storybook: Tags](mdc:https:/storybook.js.org/docs/writing-stories/tags)
+
+This guide promotes high-quality, maintainable Storybook stories.

@@ -1,0 +1,182 @@
+---
+description: 
+globs: *test.*
+alwaysApply: false
+---
+# Unit Testing Guide
+
+## Core Tenets
+- **Reliability:** Tests ensure code works and catches regressions
+- **Documentation:** Tests serve as living documentation
+- **Confidence:** Enable safe refactoring and development
+- **Maintainability:** Well-structured tests are easy to update
+
+---
+
+## Essential Rules
+
+### 1. File Structure
+- **Naming:** `*.test.{ts,tsx}` in `__tests__/` directory
+- **Organization:** Mirror `app/` and `components/` structure
+- **Fixtures:** Store test data in `__tests__/fixtures/`
+
+### 2. Framework Setup (Vitest + Testing Library)
+```tsx
+import { describe, it, expect, beforeAll } from 'vitest';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+```
+
+**Environment Setup:** Configure in `vitest.setup.ts`:
+```tsx
+if (!process.env.API_BASE_URL) {
+  process.env.API_BASE_URL = 'https://api.example.com';
+}
+```
+
+### 3. Test Structure
+```tsx
+describe('ComponentName', () => {
+  describe('Feature Group', () => {
+    it('should do specific behavior', () => {});
+  });
+});
+```
+
+**Test Names:** Be descriptive and behavior-focused:
+- ✅ `'should validate YAML file successfully'`
+- ❌ `'test validation'`
+
+### 4. Component Testing
+```tsx
+const renderComponent = (props = {}) => {
+  const defaultProps = { /* defaults */ };
+  return render(<Component {...defaultProps} {...props} />);
+};
+
+// User interactions
+const user = userEvent.setup();
+await user.click(screen.getByRole('button', { name: /submit/i }));
+
+// Async operations
+await waitFor(() => {
+  expect(screen.getByText(/success/i)).toBeInTheDocument();
+});
+```
+
+### 5. File Upload & Validation Testing
+```tsx
+// File upload
+const file = new File(['content'], 'test.yaml', { type: 'text/yaml' });
+await user.upload(screen.getByLabelText(/upload/i), file);
+
+// Validation testing
+const result = await validateData(validData);
+expect(result.isValid).toBe(true);
+expect(result.errors).toHaveLength(0);
+```
+
+### 6. Error Handling
+```tsx
+it('should display error when API fails', async () => {
+  vi.mocked(apiClient.GET).mockRejectedValue(new Error('Network error'));
+  renderComponent();
+  await waitFor(() => {
+    expect(screen.getByText(/network error/i)).toBeInTheDocument();
+  });
+});
+```
+
+---
+
+## Coverage Requirements
+
+### Component Testing
+- **MUST** test: Happy path, props variations, user interactions, error states, loading states
+
+### Utility Functions  
+- **MUST** test: Valid/invalid inputs, edge cases, error handling, return values
+
+### API Integration
+- **MUST** test: Success responses, error responses, network failures
+
+---
+
+## Best Practices
+
+### Mocking
+```tsx
+vi.mock('@/lib/api/client', () => ({
+  apiClient: { GET: vi.fn(), POST: vi.fn() }
+}));
+```
+
+### Assertions
+```tsx
+// ✅ Specific
+expect(button).toBeDisabled();
+expect(errors).toHaveLength(2);
+
+// ❌ Generic  
+expect(button.disabled).toBe(true);
+```
+
+### Cleanup
+```tsx
+beforeEach(() => {
+  vi.clearAllMocks();
+});
+```
+
+---
+
+## Quick Example
+
+```tsx
+describe('FileUpload', () => {
+  const mockOnChange = vi.fn();
+  
+  beforeEach(() => vi.clearAllMocks());
+
+  it('should accept valid YAML files', async () => {
+    const user = userEvent.setup();
+    render(<FileUpload onChange={mockOnChange} />);
+    
+    const file = new File(['test: content'], 'test.yaml', { type: 'text/yaml' });
+    await user.upload(screen.getByLabelText(/upload/i), file);
+    
+    await waitFor(() => {
+      expect(mockOnChange).toHaveBeenCalledWith(
+        expect.objectContaining({ name: 'test.yaml', isValid: true })
+      );
+    });
+  });
+
+  it('should display validation errors', async () => {
+    const user = userEvent.setup();
+    render(<FileUpload onChange={mockOnChange} />);
+    
+    const file = new File(['invalid: [yaml'], 'invalid.yaml');
+    await user.upload(screen.getByLabelText(/upload/i), file);
+    
+    await waitFor(() => {
+      expect(screen.getByText(/invalid yaml syntax/i)).toBeInTheDocument();
+    });
+  });
+});
+```
+
+---
+
+## Summary
+
+| Aspect | Requirement | Why? |
+|---|---|---|
+| Descriptive test names | MUST | Clear behavior documentation |
+| Environment setup | MUST | Consistent test environment |
+| User event simulation | MUST | Realistic interactions |
+| Error state coverage | MUST | Robust error handling |
+| Mock external deps | SHOULD | Isolated, fast tests |
+| Test cleanup | MUST | Test isolation |
+
+This guide promotes reliable, maintainable unit testing practices.

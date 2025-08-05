@@ -1,0 +1,8 @@
+# This is an invalid YAML file for testing validation errors
+
+ludus:
+  - vm_name: "test-vm"
+    hostname: "test"
+    # Missing required fields: template, vlan, ip_last_octet, ram_gb, cpus
+    # Missing OS type: linux, windows, or macOS
+    invalid_field: "this should not be here" 

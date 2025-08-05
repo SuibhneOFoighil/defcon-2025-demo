@@ -1,0 +1,251 @@
+/**
+ * Mock data for viewport demo - provides realistic data for range editor
+ * This allows the editor to work without the Ludus API backend
+ */
+
+import type { Template, VMData } from '@/lib/types'
+import type { RangeEditorData, VlanDefinition } from '@/lib/types/range-editor'
+import type { components } from '@/lib/api/ludus/schema'
+import type { RangeConfig, RouterConfig, NetworkRule } from '@/lib/types/range-config'
+
+// Mock templates for drag-and-drop
+export const mockTemplates: Template[] = [
+  {
+    name: 'ubuntu-22.04-x64-server-template',
+    built: true
+  },
+  {
+    name: 'windows-11-x64-enterprise-template',
+    built: true
+  },
+  {
+    name: 'kali-linux-2024-x64-template',
+    built: true
+  },
+  {
+    name: 'debian-12-x64-server-template',
+    built: true
+  },
+  {
+    name: 'windows-server-2022-x64-template',
+    built: true
+  }
+]
+
+// Mock VM data for the demo - simplified to just camera VM
+export const mockVMs: VMData[] = [
+  {
+    id: 'vm-30-1',
+    label: 'Security Camera (camera01)',
+    status: 'Running',
+    vmName: 'DEMO-camera01',
+    vlan: 30,
+    template: 'ubuntu-22.04-x64-server-template',
+    hostname: 'camera01',
+    ipLastOctet: 50,
+    ramGb: 2,
+    cpus: 1,
+    isDeployed: true,
+    poweredOn: true,
+    ipAddress: '192.168.30.50',
+    proxmoxId: 106,
+    ansibleGroups: ['security_cameras'],
+    roles: ['security_camera', 'monitoring']
+  }
+]
+
+// Mock VLAN definitions - includes both attacker and security networks
+export const mockVLANs: VlanDefinition[] = [
+  {
+    id: 10,
+    label: 'VLAN 10',
+    description: 'Attacker network with Kali Linux systems',
+    configuredVMs: ['DEMO-kali01']
+  },
+  {
+    id: 30,
+    label: 'Security Network', 
+    description: 'Security cameras and monitoring systems',
+    configuredVMs: ['DEMO-camera01']
+  }
+]
+
+// Mock network rules - simplified for camera network
+export const mockNetworkRules: NetworkRule[] = [
+  {
+    name: 'Camera Internet Access',
+    vlan_src: 30,
+    vlan_dst: 'public',
+    protocol: 'tcp',
+    ports: '80,443',
+    action: 'ACCEPT'
+  }
+]
+
+// Mock router configuration
+export const mockRouterConfig: RouterConfig & { 
+  isDeployed?: boolean
+  poweredOn?: boolean
+  ipAddress?: string
+} = {
+  vm_name: 'DEMO-router',
+  hostname: 'router',
+  template: 'debian-12-x64-server-template',
+  ram_gb: 2,
+  cpus: 2,
+  isDeployed: true,
+  poweredOn: true,
+  ipAddress: '192.168.1.1'
+}
+
+// Mock network configuration
+export const mockNetworkConfig: RangeConfig['network'] = {
+  inter_vlan_default: 'REJECT',
+  external_default: 'ACCEPT',
+  rules: [
+    {
+      name: 'Web to Database',
+      vlan_src: 10,
+      vlan_dst: 10,
+      protocol: 'tcp',
+      ports: '3306,5432',
+      action: 'ACCEPT'
+    },
+    {
+      name: 'Corporate to DMZ HTTP',
+      vlan_src: 20,
+      vlan_dst: 10,
+      protocol: 'tcp',
+      ports: '80,443',
+      action: 'ACCEPT'
+    },
+    {
+      name: 'External Web Access',
+      vlan_src: 'public',
+      vlan_dst: 10,
+      protocol: 'tcp',
+      ports: '80,443',
+      action: 'ACCEPT'
+    },
+    {
+      name: 'Attacker Reconnaissance',
+      vlan_src: 30,
+      vlan_dst: 10,
+      protocol: 'tcp',
+      ports: '22,80,443',
+      action: 'ACCEPT'
+    },
+    {
+      name: 'Block Red Team to Corporate',
+      vlan_src: 30,
+      vlan_dst: 20,
+      protocol: 'all',
+      ports: '',
+      action: 'REJECT'
+    }
+  ]
+}
+
+// Mock range object (deployed state)
+export const mockRangeObject: components['schemas']['RangeObject'] = {
+  userID: 'DEMO',
+  rangeNumber: 1,
+  lastDeployment: new Date().toISOString(),
+  numberOfVMs: 5,
+  rangeState: 'NOT DEPLOYED',
+  testingEnabled: false,
+  allowedDomains: ['example.com', 'google.com'],
+  allowedIPs: ['8.8.8.8', '1.1.1.1'],
+  VMs: [
+    {
+      ID: 6,
+      proxmoxID: 200,
+      rangeNumber: 1,
+      name: 'DEMO-router',
+      poweredOn: true,
+      ip: '192.168.1.1',
+      isRouter: true
+    },
+    {
+      ID: 7,
+      proxmoxID: 106,
+      rangeNumber: 1,
+      name: 'DEMO-camera01',
+      poweredOn: true,
+      ip: '192.168.30.50'
+    }
+  ]
+}
+
+// Mock complete range editor data with router
+export const mockRangeEditorData: RangeEditorData = {
+  userID: 'DEMO',
+  rangeNumber: 1,
+  rangeState: 'NOT DEPLOYED',
+  testingEnabled: false,
+  allowedDomains: ['example.com', 'google.com'],
+  allowedIPs: ['8.8.8.8', '1.1.1.1'],
+  topology: {
+    vlans: mockVLANs,
+    networkRules: mockNetworkRules
+  },
+  network: mockNetworkConfig,
+  defaults: {
+    snapshot_with_RAM: true,
+    stale_hours: 24,
+    ad_domain_functional_level: 'Win2012R2',
+    ad_forest_functional_level: 'Win2012R2',
+    ad_domain_admin: 'Administrator',
+    ad_domain_admin_password: 'P@ssw0rd123!',
+    ad_domain_user: 'DemoUser',
+    ad_domain_user_password: 'P@ssw0rd123!',
+    ad_domain_safe_mode_password: 'P@ssw0rd123!',
+    timezone: 'UTC',
+    enable_dynamic_wallpaper: true
+  },
+  vms: mockVMs,
+  nodes: [
+    // Mock router node - based on generateFlowData logic
+    {
+      id: 'router',
+      type: 'router',
+      position: { x: 400, y: 50 },
+      data: {
+        ...mockRouterConfig,
+        label: 'Router',
+        status: 'Running',
+        isDeployed: true,
+        poweredOn: true,
+        template: 'debian-12-x64-server-template',
+        vm_name: 'DEMO-router'
+      }
+    }
+  ], 
+  edges: [], // Will be generated by the editor  
+  metadata: {
+    hasConfig: true,
+    hasDeployedVMs: true,
+    configDeploymentMismatch: false,
+    unmatchedVMs: [],
+    missingVMs: []
+  }
+}
+
+// Helper functions to simulate API responses
+export const getMockEditorData = (userID: string): RangeEditorData => {
+  return {
+    ...mockRangeEditorData,
+    userID
+  }
+}
+
+export const getMockTemplates = (): Template[] => {
+  return mockTemplates
+}
+
+export const getMockRange = (userID: string): components['schemas']['RangeObject'] => {
+  return {
+    ...mockRangeObject,
+    userID
+  }
+}

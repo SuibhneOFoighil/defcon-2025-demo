@@ -1,0 +1,13 @@
+# This file has invalid YAML syntax
+
+ludus:
+  - vm_name: "test-vm"
+    hostname: "test"
+    template: debian-12-x64-server-template
+    vlan: 10
+    ip_last_octet: 10
+    ram_gb: 4
+    cpus: 2
+    linux: true
+    # Invalid YAML: unclosed bracket
+    invalid: [unclosed bracket 

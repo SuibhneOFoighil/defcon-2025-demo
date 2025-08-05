@@ -1,0 +1,165 @@
+# yaml-language-server: $schema=https://docs.ludus.cloud/schemas/range-config.json
+# Test fixture for router-VLAN public rule functionality
+# This YAML demonstrates router connectivity with public rules
+
+ludus:
+  - vm_name: "{{ range_id }}-web-server-01"
+    hostname: "{{ range_id }}-web01"
+    template: debian-12-x64-server-template
+    vlan: 10
+    ip_last_octet: 10
+    ram_gb: 4
+    cpus: 2
+    linux: true
+    roles:
+      - nginx
+    role_vars:
+      nginx_server_name: "{{ range_id }}.ludus.domain"
+
+  - vm_name: "{{ range_id }}-app-server-01"
+    hostname: "{{ range_id }}-app01"
+    template: debian-12-x64-server-template
+    vlan: 10
+    ip_last_octet: 20
+    ram_gb: 4
+    cpus: 2
+    linux: true
+
+  - vm_name: "{{ range_id }}-db-server-01"
+    hostname: "{{ range_id }}-db01"
+    template: debian-12-x64-server-template
+    vlan: 20
+    ip_last_octet: 10
+    ram_gb: 8
+    cpus: 4
+    linux: true
+    roles:
+      - postgresql
+
+  - vm_name: "{{ range_id }}-admin-workstation"
+    hostname: "{{ range_id }}-admin"
+    template: kali-x64-desktop-template
+    vlan: 99
+    ip_last_octet: 10
+    ram_gb: 8
+    cpus: 4
+    linux: true
+
+router:
+  vm_name: "{{ range_id }}-router"
+  hostname: "{{ range_id }}-router"
+  template: debian-11-x64-server-template
+  ram_gb: 2
+  ram_min_gb: 1
+  cpus: 2
+  roles:
+    - ludus_router
+
+network:
+  inter_vlan_default: REJECT
+  external_default: REJECT
+  rules:
+    # Public access rules - Router to VLAN connections
+    - name: "Internet to Web Tier HTTP"
+      vlan_src: public
+      vlan_dst: 10
+      protocol: tcp
+      ports: "80"
+      action: ACCEPT
+    
+    - name: "Internet to Web Tier HTTPS"
+      vlan_src: public
+      vlan_dst: 10
+      protocol: tcp
+      ports: "443"
+      action: ACCEPT
+    
+    # Restricted public access with IP targeting
+    - name: "Internet to Specific Web Server"
+      vlan_src: public
+      vlan_dst: 10
+      protocol: tcp
+      ports: "8080"
+      action: ACCEPT
+      ip_last_octet_dst: 10
+    
+    # Outbound access rules - VLAN to Router connections
+    - name: "Web Tier to Internet"
+      vlan_src: 10
+      vlan_dst: public
+      protocol: tcp
+      ports: "80,443"
+      action: ACCEPT
+    
+    - name: "Database Updates Only"
+      vlan_src: 20
+      vlan_dst: public
+      protocol: tcp
+      ports: "80,443"
+      action: ACCEPT
+      ip_last_octet_src: 10
+    
+    # Admin workstation full internet access
+    - name: "Admin Inbound Access"
+      vlan_src: public
+      vlan_dst: 99
+      protocol: tcp
+      ports: "22,3389"
+      action: ACCEPT
+    
+    - name: "Admin Outbound Access"
+      vlan_src: 99
+      vlan_dst: public
+      protocol: all
+      ports: all
+      action: ACCEPT
+    
+    # Inter-VLAN rules (non-public)
+    - name: "Web to Database"
+      vlan_src: 10
+      vlan_dst: 20
+      protocol: tcp
+      ports: "5432"
+      action: ACCEPT
+    
+    - name: "Admin to Web Management"
+      vlan_src: 99
+      vlan_dst: 10
+      protocol: tcp
+      ports: "22,80,443"
+      action: ACCEPT
+    
+    - name: "Admin to Database Management"
+      vlan_src: 99
+      vlan_dst: 20
+      protocol: tcp
+      ports: "22,5432"
+      action: ACCEPT
+    
+    # Security rules - blocking unwanted traffic
+    - name: "Block Database Internet Access"
+      vlan_src: 20
+      vlan_dst: public
+      protocol: tcp
+      ports: "22,3306,5432"
+      action: REJECT
+    
+    - name: "Drop Suspicious Outbound"
+      vlan_src: 10
+      vlan_dst: public
+      protocol: tcp
+      ports: "22,23,3389"
+      action: DROP
+
+defaults:
+  snapshot_with_RAM: true
+  stale_hours: 0
+  ad_domain_functional_level: Win2012R2
+  ad_forest_functional_level: Win2012R2
+  ad_domain_admin: domainadmin
+  ad_domain_admin_password: password
+  ad_domain_user: domainuser
+  ad_domain_user_password: password
+  ad_domain_safe_mode_password: password
+  timezone: America/New_York
+  enable_dynamic_wallpaper: true

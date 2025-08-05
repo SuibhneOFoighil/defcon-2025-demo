@@ -1,0 +1,87 @@
+---
+description: 
+globs: *.tsx
+alwaysApply: false
+---
+# Component Styling Rule
+
+All components **must** be styled using Tailwind CSS utility classes, referencing your design tokens and CSS variables defined in [`app/tailwind.css`](mdc:../app/tailwind.css) for all colors, spacing, radii, and typography. All components **must** support both light and dark mode variants.
+
+This guide outlines the standards for creating new components that align with our design system.
+
+## Why?
+- **Consistency:** Ensures all UI matches the design system and global theme.
+- **Scalability:** Update tokens/config or CSS variables, and all components stay in sync.
+- **Maintainability:** No magic numbers or ad-hoc CSS. All theming is centralized.
+- **Accessibility:** Light/dark mode support is required for all users.
+
+## How to Use
+
+### 1. **Reference `tailwind.css` for Variables**
+All theme variables (e.g., `--input-bg`, `--button-primary-bg`, `--card-bg`, etc.) are defined in [`app/tailwind.css`](mdc:../app/tailwind.css) under `:root` and `.dark`. **Always check this file for available variables before styling a component.**
+
+Use these CSS variables in your components via Tailwind's `theme()` function or arbitrary value syntax (`bg-[--input-bg]`).
+
+For any component with custom variables in `tailwind.css`, you **must** use those variables via Tailwind's arbitrary value syntax. This applies to all custom theming, not just inputs.
+
+Example of a correctly styled input using CSS variables:
+```tsx
+<input
+  className="bg-[hsl(var(--input-bg))] border-[hsl(var(--input-border))] text-[hsl(var(--input-text))] placeholder:text-[hsl(var(--input-placeholder))] focus-visible:border-[hsl(var(--input-focus-border))] focus-visible:ring-[hsl(var(--input-focus-ring))] disabled:bg-[hsl(var(--input-disabled-bg))] disabled:text-[hsl(var(--input-disabled-text))]"
+/>
+```
+
+#### **Button Example:**
+```tsx
+<button
+  className="bg-[hsl(var(--button-primary-bg))] text-[hsl(var(--button-primary-text))] hover:bg-[hsl(var(--button-primary-hover))] disabled:bg-[hsl(var(--button-secondary-bg))]"
+>
+  Click me
+</button>
+```
+
+#### **Card Example:**
+```tsx
+<div className="bg-[hsl(var(--card-bg))] border-[hsl(var(--card-border))] text-[hsl(var(--card-foreground))]">
+  ...
+</div>
+```
+
+This ensures that the component's appearance updates automatically when the theme is changed and that our design system remains consistent.
+
+- **DO NOT** use hardcoded color values (e.g., `bg-blue-500`, `text-[#aabbcc]`).
+- **DO NOT** add new variables to `tailwind.config.ts` without first checking if a suitable variable already exists.
+- Review [`app/tailwind.css`](mdc:../app/tailwind.css) before adding new styles or variables.
+- Ensure any new components are added to Storybook with stories for all variants and states.
+- All components should be keyboard-accessible and meet WCAG 2.1 AA standards.
+
+### 2. **Spacing & Radii**
+Use Tailwind spacing and border radius classes that are mapped to your tokens (e.g., `p-4`, `rounded-2xl`).
+
+### 3. **Typography**
+Use the correct font family and weight via Tailwind (`font-sans`, `font-heading`, `font-bold`, etc.).
+
+### 4. **Light & Dark Mode**
+You do **not** need to add `dark:` variants for classes using CSS variables, as the variables themselves change in dark mode. Only use `dark:` for classes that do not use variables.
+
+### 5. **No Magic Numbers or Ad-hoc CSS**
+Never use hardcoded values for colors, spacing, or fonts. Always use tokens or CSS variables via Tailwind classes.
+
+## Summary Table
+| Aspect         | Required? | How to Satisfy                |
+|---|:---:|----|
+| Tailwind      | ✅        | Use utility classes only       |
+| Light/Dark    | ✅        | Use CSS variables or `dark:`   |
+| Design Tokens | ✅        | Use mapped Tailwind classes    |
+| CSS Vars      | ✅        | Use arbitrary value syntax     |
+| No Magic #s   | ✅        | Never hardcode values          |
+| Typography    | ✅        | Use `font-sans`, `font-heading`|
+
+## Best Practices
+- Use `@apply` in CSS modules only for complex, repeated patterns.
+- Reference tokens in both Tailwind config and theme config.
+- Review [`app/tailwind.css`](mdc:../app/tailwind.css) before adding new styles or variables.
+- Prefer semantic class names (e.g., `bg-card`, `text-muted`) over raw color utilities, unless using a custom variable.
+
+---
+**All new and refactored components must follow this rule.**
