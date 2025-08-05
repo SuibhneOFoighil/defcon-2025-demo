@@ -115,15 +115,19 @@ fi
 # Install iptables if missing (required for Docker networking)
 echo "🔧 Checking iptables installation..."
 if ! command -v iptables &> /dev/null; then
-    echo "📦 Installing iptables (required for Docker networking)..."
-    if command -v apt &> /dev/null; then
-        sudo apt update && sudo apt install -y iptables
-    elif command -v yum &> /dev/null; then
-        sudo yum install -y iptables
-    else
-        echo "❌ No supported package manager found. Please install iptables manually."
-        exit 1
+    echo "📦 Installing iptables manually (repository issues)..."
+    # Download iptables directly
+    cd /tmp
+    curl -fsSLO "http://archive.ubuntu.com/ubuntu/pool/main/i/iptables/iptables_1.8.7-1ubuntu5_amd64.deb"
+    sudo dpkg -i iptables_*.deb 2>/dev/null || true
+    # Alternative: create symlink if iptables exists elsewhere
+    if [ -f /usr/sbin/iptables ]; then
+        sudo ln -sf /usr/sbin/iptables /usr/local/bin/iptables
+    elif [ -f /sbin/iptables ]; then
+        sudo ln -sf /sbin/iptables /usr/local/bin/iptables
     fi
+    rm -f iptables_*.deb
+    cd - > /dev/null
     echo "✅ iptables installed successfully!"
 fi
 
@@ -146,17 +150,13 @@ fi
 # Install ttyd on host system for Kali CLI access
 echo "🖥️  Checking ttyd installation on host..."
 if ! command -v ttyd &> /dev/null; then
-    echo "📦 Installing ttyd..."
-    if command -v apt &> /dev/null; then
-        sudo apt update && sudo apt install -y ttyd
-    elif command -v yum &> /dev/null; then
-        sudo yum install -y ttyd
-    elif command -v brew &> /dev/null; then
-        brew install ttyd
-    else
-        echo "❌ No supported package manager found. Please install ttyd manually."
-        exit 1
-    fi
+    echo "📦 Installing ttyd manually (repository issues)..."
+    # Download ttyd binary directly
+    cd /tmp
+    curl -fsSL https://github.com/tsl0922/ttyd/releases/download/1.7.7/ttyd.x86_64 -o ttyd
+    sudo mv ttyd /usr/local/bin/ttyd
+    sudo chmod +x /usr/local/bin/ttyd
+    cd - > /dev/null
     echo "✅ ttyd installed successfully!"
 fi
 
