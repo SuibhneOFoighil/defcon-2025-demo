@@ -94,20 +94,13 @@ fi
 
 # Check if Docker Compose is available
 if ! command -v docker-compose &> /dev/null && ! docker compose version &> /dev/null; then
-    echo "📦 Docker Compose not found. Installing..."
+    echo "📦 Docker Compose not found. Installing manually..."
     
-    # Try to install docker-compose plugin (preferred method)
-    if command -v apt &> /dev/null; then
-        sudo apt update && sudo apt install -y docker-compose-plugin
-    elif command -v yum &> /dev/null; then
-        sudo yum install -y docker-compose-plugin
-    else
-        # Fallback to standalone docker-compose
-        echo "📦 Installing standalone docker-compose..."
-        DOCKER_COMPOSE_VERSION=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d '"' -f 4)
-        sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-        sudo chmod +x /usr/local/bin/docker-compose
-    fi
+    # Install standalone docker-compose directly
+    echo "📦 Downloading docker-compose..."
+    DOCKER_COMPOSE_VERSION="v2.24.5"
+    sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
     
     echo "✅ Docker Compose installed successfully!"
 fi
