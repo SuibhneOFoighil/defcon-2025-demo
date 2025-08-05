@@ -112,6 +112,21 @@ if ! command -v docker-compose &> /dev/null && ! docker compose version &> /dev/
     echo "✅ Docker Compose installed successfully!"
 fi
 
+# Install iptables if missing (required for Docker networking)
+echo "🔧 Checking iptables installation..."
+if ! command -v iptables &> /dev/null; then
+    echo "📦 Installing iptables (required for Docker networking)..."
+    if command -v apt &> /dev/null; then
+        sudo apt update && sudo apt install -y iptables
+    elif command -v yum &> /dev/null; then
+        sudo yum install -y iptables
+    else
+        echo "❌ No supported package manager found. Please install iptables manually."
+        exit 1
+    fi
+    echo "✅ iptables installed successfully!"
+fi
+
 # Test Docker is working
 echo "🔍 Testing Docker installation..."
 if ! docker --version &> /dev/null; then
