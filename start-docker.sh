@@ -124,13 +124,42 @@ if ! command -v iptables &> /dev/null; then
     echo "✅ iptables installed successfully!"
 fi
 
-# Test Docker is working
+# Test Docker is working and fix permissions
 echo "🔍 Testing Docker installation..."
 if ! docker --version &> /dev/null; then
     echo "❌ Docker installation failed or permissions issue."
     echo "    Try: sudo docker --version"
     echo "    Or: newgrp docker"
     exit 1
+fi
+
+# Ensure Docker daemon is running
+echo "🔄 Starting Docker daemon..."
+sudo systemctl start docker.service 2>/dev/null || true
+sleep 2
+
+# Test Docker permissions
+echo "🔐 Checking Docker permissions..."
+if ! docker ps &> /dev/null; then
+    echo "🔧 Fixing Docker permissions..."
+    # Add user to docker group (already done above, but ensure it's applied)
+    sudo usermod -aG docker $USER
+    
+    # Change docker socket permissions as fallback
+    sudo chmod 666 /var/run/docker.sock 2>/dev/null || true
+    
+    # Test again
+    if ! docker ps &> /dev/null; then
+        echo "⚠️  Docker permissions still need fixing. Using sudo for Docker commands..."
+        # Create a wrapper function to use sudo for docker commands
+        export DOCKER_SUDO="sudo"
+    else
+        echo "✅ Docker permissions fixed!"
+        export DOCKER_SUDO=""
+    fi
+else
+    echo "✅ Docker permissions OK!"
+    export DOCKER_SUDO=""
 fi
 
 # Create environment file if it doesn't exist
@@ -180,14 +209,14 @@ fi
 
 # Stop any existing containers
 echo "🧹 Stopping existing containers..."
-docker-compose -f docker-compose-simple.yml down 2>/dev/null || true
+${DOCKER_SUDO} docker-compose -f docker-compose-simple.yml down 2>/dev/null || true
 
 # Build and start services
 echo "🔨 Building Docker images..."
-docker-compose -f docker-compose-simple.yml build
+${DOCKER_SUDO} docker-compose -f docker-compose-simple.yml build
 
 echo "🏁 Starting services..."
-docker-compose -f docker-compose-simple.yml up -d
+${DOCKER_SUDO} docker-compose -f docker-compose-simple.yml up -d
 
 # Wait a moment for services to start
 sleep 5
@@ -195,7 +224,7 @@ sleep 5
 # Check service status
 echo ""
 echo "🔍 Checking service status..."
-docker-compose -f docker-compose-simple.yml ps
+${DOCKER_SUDO} docker-compose -f docker-compose-simple.yml ps
 
 echo ""
 echo "🎉 Ludus Workshop Environment is ready!"
@@ -210,17 +239,33 @@ echo "   Ludus GUI and slides run in Docker containers"
 echo "   Terminal runs on HOST system for Kali CLI access"
 echo ""
 echo "📋 Management Commands:"
-echo "   • View logs:     docker-compose -f docker-compose-simple.yml logs -f [service-name]"
-echo "   • Stop:          docker-compose -f docker-compose-simple.yml down"
-echo "   • Restart:       docker-compose -f docker-compose-simple.yml restart [service-name]"  
-echo "   • Rebuild:       docker-compose -f docker-compose-simple.yml build --no-cache"
-echo ""
-echo "🔧 Troubleshooting:"
-echo "   • Check status:  docker-compose -f docker-compose-simple.yml ps"
-echo "   • View logs:     docker-compose -f docker-compose-simple.yml logs [service-name]"
-echo "   • Enter container: docker-compose -f docker-compose-simple.yml exec [service-name] sh"
-echo "   • Kill ttyd:     pkill -f 'ttyd.*7681'"
-echo ""
-echo "🛑 To stop everything:"
-echo "   docker-compose -f docker-compose-simple.yml down && pkill -f 'ttyd.*7681'"
+if [ "$DOCKER_SUDO" = "sudo" ]; then
+    echo "   • View logs:     sudo docker-compose -f docker-compose-simple.yml logs -f [service-name]"
+    echo "   • Stop:          sudo docker-compose -f docker-compose-simple.yml down"
+    echo "   • Restart:       sudo docker-compose -f docker-compose-simple.yml restart [service-name]"  
+    echo "   • Rebuild:       sudo docker-compose -f docker-compose-simple.yml build --no-cache"
+    echo ""
+    echo "🔧 Troubleshooting:"
+    echo "   • Check status:  sudo docker-compose -f docker-compose-simple.yml ps"
+    echo "   • View logs:     sudo docker-compose -f docker-compose-simple.yml logs [service-name]"
+    echo "   • Enter container: sudo docker-compose -f docker-compose-simple.yml exec [service-name] sh"
+    echo "   • Kill ttyd:     pkill -f 'ttyd.*7681'"
+    echo ""
+    echo "🛑 To stop everything:"
+    echo "   sudo docker-compose -f docker-compose-simple.yml down && pkill -f 'ttyd.*7681'"
+else
+    echo "   • View logs:     docker-compose -f docker-compose-simple.yml logs -f [service-name]"
+    echo "   • Stop:          docker-compose -f docker-compose-simple.yml down"
+    echo "   • Restart:       docker-compose -f docker-compose-simple.yml restart [service-name]"  
+    echo "   • Rebuild:       docker-compose -f docker-compose-simple.yml build --no-cache"
+    echo ""
+    echo "🔧 Troubleshooting:"
+    echo "   • Check status:  docker-compose -f docker-compose-simple.yml ps"
+    echo "   • View logs:     docker-compose -f docker-compose-simple.yml logs [service-name]"
+    echo "   • Enter container: docker-compose -f docker-compose-simple.yml exec [service-name] sh"
+    echo "   • Kill ttyd:     pkill -f 'ttyd.*7681'"
+    echo ""
+    echo "🛑 To stop everything:"
+    echo "   docker-compose -f docker-compose-simple.yml down && pkill -f 'ttyd.*7681'"
+fi
 echo ""
