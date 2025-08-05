@@ -1,3 +1,8 @@
-::1 - - [05/Aug/2025 12:44:09] "GET / HTTP/1.1" 304 -
-::1 - - [05/Aug/2025 12:44:09] "GET /styles.css HTTP/1.1" 304 -
-::1 - - [05/Aug/2025 12:44:09] "GET /script.js HTTP/1.1" 304 -
+127.0.0.1 - - [05/Aug/2025 15:45:03] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [05/Aug/2025 15:45:03] "GET /styles.css HTTP/1.1" 304 -
+127.0.0.1 - - [05/Aug/2025 15:45:03] "GET /script.js HTTP/1.1" 304 -
+127.0.0.1 - - [05/Aug/2025 15:45:03] "GET /slides/index.json HTTP/1.1" 304 -
+127.0.0.1 - - [05/Aug/2025 15:45:03] "GET /slides/02-tutorial.html HTTP/1.1" 304 -
+127.0.0.1 - - [05/Aug/2025 15:45:03] "GET /slides/02.sub1-ludus-deployment.html HTTP/1.1" 304 -
+127.0.0.1 - - [05/Aug/2025 15:45:04] "GET /slides/02.sub2-terminal-ready.html HTTP/1.1" 304 -
+127.0.0.1 - - [05/Aug/2025 15:45:04] "GET /slides/02.sub3-tutorial-start.html HTTP/1.1" 304 -

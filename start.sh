@@ -132,7 +132,7 @@ sleep 1
 
 # Start ttyd
 echo "🚀 Starting ttyd on port 7681..."
-ttyd -p 7681 -t fontSize=18 -t 'theme={"background": "#1e1e1e"}' -W /bin/bash > logs/ttyd.log 2>&1 &
+ttyd -p 7681 -i 0.0.0.0 -t fontSize=18 -t 'theme={"background": "#1e1e1e"}' -W /bin/bash > logs/ttyd.log 2>&1 &
 TTYD_PID=$!
 sleep 1
 if kill -0 "$TTYD_PID" 2>/dev/null; then
@@ -152,14 +152,14 @@ fi
 echo "🔨 Building Ludus GUI for production..."
 npm run build
 echo "🚀 Starting Ludus GUI in production mode..."
-npm start > ../logs/ludus-gui.log 2>&1 &
+npx next start -H 0.0.0.0 > ../logs/ludus-gui.log 2>&1 &
 LUDUS_PID=$!
 cd ..
 
 # Start slides server
 echo "🚀 Starting slides server on port 8000..."
 cd shell-n-slides
-python3 -m http.server 8000 > ../logs/slides.log 2>&1 &
+python3 -m http.server 8000 --bind 0.0.0.0 > ../logs/slides.log 2>&1 &
 SLIDES_PID=$!
 cd ..
 
@@ -190,10 +190,16 @@ fi
 echo ""
 echo "🎉 Ludus Workshop Environment is ready!"
 echo ""
+# Get network IP
+NETWORK_IP=$(ip route get 1.1.1.1 2>/dev/null | grep -oP 'src \K[^ ]+' | head -1)
+if [ -z "$NETWORK_IP" ]; then
+    NETWORK_IP=$(hostname -I | awk '{print $1}')
+fi
+
 echo "📍 Access URLs:"
-echo "   • Ludus GUI:     http://localhost:3000"
-echo "   • Slideshow:     http://localhost:8000"  
-echo "   • Terminal:      http://localhost:7681"
+echo "   • Ludus GUI:     http://localhost:3000 or http://${NETWORK_IP}:3000"
+echo "   • Slideshow:     http://localhost:8000 or http://${NETWORK_IP}:8000"  
+echo "   • Terminal:      http://localhost:7681 or http://${NETWORK_IP}:7681"
 echo ""
 echo "🔄 Integration:"
 echo "   The Ludus GUI iframe is configured to load at localhost:3000"
