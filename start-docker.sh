@@ -7,25 +7,89 @@ echo "🚀 Starting Ludus Workshop Environment (Docker)..."
 
 # Check if Docker is installed and install if missing
 if ! command -v docker &> /dev/null; then
-    echo "📦 Docker not found. Installing Docker..."
-    curl -fsSL https://get.docker.com | sh
+    echo "📦 Docker not found. Installing Docker manually..."
     
-    echo "👤 Adding current user to docker group..."
+    # Download Docker binaries directly
+    DOCKER_VERSION="25.0.3"
+    ARCH=$(uname -m)
+    case $ARCH in
+        x86_64) DOCKER_ARCH="x86_64" ;;
+        aarch64|arm64) DOCKER_ARCH="aarch64" ;;
+        *) echo "❌ Unsupported architecture: $ARCH"; exit 1 ;;
+    esac
+    
+    echo "🔧 Downloading Docker ${DOCKER_VERSION} for ${DOCKER_ARCH}..."
+    cd /tmp
+    curl -fsSLO "https://download.docker.com/linux/static/stable/${DOCKER_ARCH}/docker-${DOCKER_VERSION}.tgz"
+    
+    echo "📦 Installing Docker binaries..."
+    tar -xzf "docker-${DOCKER_VERSION}.tgz"
+    sudo cp docker/* /usr/local/bin/
+    sudo chmod +x /usr/local/bin/docker*
+    
+    echo "🔧 Setting up Docker daemon..."
+    # Create docker group and add user
+    sudo groupadd docker 2>/dev/null || true
     sudo usermod -aG docker $USER
     
-    echo "🔄 Starting Docker service..."
-    sudo systemctl enable docker
-    sudo systemctl start docker
+    # Create systemd service for Docker daemon
+    sudo tee /etc/systemd/system/docker.service > /dev/null << 'EOF'
+[Unit]
+Description=Docker Application Container Engine
+Documentation=https://docs.docker.com
+After=network-online.target firewalld.service containerd.service
+Wants=network-online.target
+Requires=docker.socket containerd.service
+
+[Service]
+Type=notify
+ExecStart=/usr/local/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+ExecReload=/bin/kill -s HUP $MAINPID
+TimeoutSec=0
+RestartSec=2
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+    # Create socket file
+    sudo tee /etc/systemd/system/docker.socket > /dev/null << 'EOF'
+[Unit]
+Description=Docker Socket for the API
+
+[Socket]
+ListenStream=/var/run/docker.sock
+SocketMode=0660
+SocketUser=root
+SocketGroup=docker
+
+[Install]
+WantedBy=sockets.target
+EOF
+
+    # Install containerd (required)
+    echo "📦 Installing containerd..."
+    CONTAINERD_VERSION="1.7.13"
+    curl -fsSLO "https://github.com/containerd/containerd/releases/download/v${CONTAINERD_VERSION}/containerd-${CONTAINERD_VERSION}-linux-${DOCKER_ARCH/x86_64/amd64}.tar.gz"
+    sudo tar -C /usr/local -xzf "containerd-${CONTAINERD_VERSION}-linux-${DOCKER_ARCH/x86_64/amd64}.tar.gz"
+    
+    # Create containerd service
+    sudo curl -fsSL "https://raw.githubusercontent.com/containerd/containerd/main/containerd.service" -o /etc/systemd/system/containerd.service
+    
+    echo "🔄 Starting Docker services..."
+    sudo systemctl daemon-reload
+    sudo systemctl enable containerd docker.socket docker.service
+    sudo systemctl start containerd docker.socket docker.service
+    
+    # Clean up
+    rm -f docker-*.tgz containerd-*.tar.gz
+    rm -rf docker/
+    cd - > /dev/null
     
     echo "✅ Docker installed successfully!"
     echo "⚠️  You may need to log out and back in for Docker group permissions to take effect."
     echo "    If you get permission errors, run: newgrp docker"
-    
-    # Try to activate docker group for current session
-    newgrp docker << EONG
-    echo "🔍 Testing Docker installation..."
-    docker --version
-EONG
 fi
 
 # Check if Docker Compose is available
