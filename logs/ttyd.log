@@ -1,12 +1,18 @@
-[2025/08/05 12:27:20:8273] N: ttyd 1.7.7-unknown (libwebsockets 4.4.0-unknown)
-[2025/08/05 12:27:20:8277] N: tty configuration:
-[2025/08/05 12:27:20:8277] N:   start command: /bin/bash
-[2025/08/05 12:27:20:8277] N:   close signal: SIGHUP (1)
-[2025/08/05 12:27:20:8277] N:   terminal type: xterm-256color
-[2025/08/05 12:27:20:8280] N:    /opt/homebrew/Cellar/libwebsockets/4.4.1/lib/libwebsockets-evlib_uv.dylib
-[2025/08/05 12:27:20:8280] N: lws_create_context: LWS: 4.4.0-unknown, NET CLI SRV H1 H2 WS SS-JSON-POL ConMon IPV6-off
-[2025/08/05 12:27:20:8297] N: elops_init_pt_uv:  Using foreign event loop...
-[2025/08/05 12:27:20:8309] N: [vh|1|default||7681]: lws_socket_bind: source ads 0.0.0.0
-[2025/08/05 12:27:20:8309] N:  Listening on port: 7681
-[2025/08/05 12:27:46:2249] N: received signal: SIGINT (2), exiting...
-[2025/08/05 12:27:46:2249] N: send ^C to force exit.
+[2025/08/05 12:43:06:6722] N: ttyd 1.7.7-unknown (libwebsockets 4.4.0-unknown)
+[2025/08/05 12:43:06:6725] N: tty configuration:
+[2025/08/05 12:43:06:6725] N:   start command: /bin/bash
+[2025/08/05 12:43:06:6725] N:   close signal: SIGHUP (1)
+[2025/08/05 12:43:06:6725] N:   terminal type: xterm-256color
+[2025/08/05 12:43:06:6729] N:    /opt/homebrew/Cellar/libwebsockets/4.4.1/lib/libwebsockets-evlib_uv.dylib
+[2025/08/05 12:43:06:6729] N: lws_create_context: LWS: 4.4.0-unknown, NET CLI SRV H1 H2 WS SS-JSON-POL ConMon IPV6-off
+[2025/08/05 12:43:06:6745] N: elops_init_pt_uv:  Using foreign event loop...
+[2025/08/05 12:43:06:6760] N: [vh|1|default||7681]: lws_socket_bind: source ads 0.0.0.0
+[2025/08/05 12:43:06:6760] N:  Listening on port: 7681
+[2025/08/05 12:44:09:1873] N: HTTP / - 127.0.0.1
+[2025/08/05 12:44:09:2287] N: HTTP /token - 127.0.0.1
+[2025/08/05 12:44:09:2658] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/05 12:44:09:2675] N: started process, pid: 79600
+[2025/08/05 12:44:54:8953] N: received signal: SIGINT (2), exiting...
+[2025/08/05 12:44:54:8954] N: send ^C to force exit.
+[2025/08/05 12:44:54:8956] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/05 12:44:54:8957] N: killing process, pid: 79600

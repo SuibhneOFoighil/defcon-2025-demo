@@ -7,7 +7,426 @@
    - Network:      http://10.0.1.4:3000
 
  ✓ Starting...
- ✓ Ready in 186ms
-{"level":"ERROR","time":1754411249733,"pid":71352,"hostname":"Suibhnes-MacBook-Pro.local","context":"AUTH","environment":"production","authDisabled":true,"msg":"⚠️ WARNING: Authentication is disabled in production!"}
+ ✓ Ready in 141ms
+{"level":"ERROR","time":1754412227669,"pid":79557,"hostname":"Suibhnes-MacBook-Pro.local","context":"AUTH","environment":"production","authDisabled":true,"msg":"⚠️ WARNING: Authentication is disabled in production!"}
 ⚠️ WARNING: Authentication is disabled in production!
-{"level":"ERROR","time":1754411249734,"pid":71352,"hostname":"Suibhnes-MacBook-Pro.local","context":"AUTH","issues":["Authentication is disabled in production environment"],"msg":"Authentication configuration validation failed"}
+{"level":"ERROR","time":1754412227669,"pid":79557,"hostname":"Suibhnes-MacBook-Pro.local","context":"AUTH","issues":["Authentication is disabled in production environment"],"msg":"Authentication configuration validation failed"}
+{ context: 'AUTH' } { environment: 'production', authDisabled: true } '⚠️ WARNING: Authentication is disabled in production!'
+⚠️ WARNING: Authentication is disabled in production!
+{ context: 'AUTH' } { issues: [ 'Authentication is disabled in production environment' ] } 'Authentication configuration validation failed'
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/',
+  pathname: '/',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/ranges/DEMO',
+  pathname: '/api/ludus/ranges/DEMO',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/templates/status',
+  pathname: '/api/ludus/templates/status',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/ranges/DEMO/editor-data',
+  pathname: '/api/ludus/ranges/DEMO/editor-data',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/ranges-mock?userID=DEMO',
+  pathname: '/api/ludus/ranges-mock',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/templates-mock',
+  pathname: '/api/ludus/templates-mock',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/ranges/DEMO/editor-data-mock',
+  pathname: '/api/ludus/ranges/DEMO/editor-data-mock',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+[MOCK API] editor-data-mock endpoint called for userID: DEMO
+Unexpected error fetching range: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async u (.next/server/app/api/ludus/ranges/[userID]/route.js:1:7800) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+Error in editor-data endpoint: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async na (.next/server/app/api/ludus/ranges/[userID]/editor-data/route.js:1:98562) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+Unexpected error fetching templates status: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async u (.next/server/app/api/ludus/templates/status/route.js:1:7382) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+[MOCK API] Creating mock editor data...
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/snapshots/list',
+  pathname: '/api/ludus/snapshots/list',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+Unexpected error fetching snapshots: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async u (.next/server/app/api/ludus/snapshots/list/route.js:1:7500) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/ranges/DEMO',
+  pathname: '/api/ludus/ranges/DEMO',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/ranges/DEMO/editor-data',
+  pathname: '/api/ludus/ranges/DEMO/editor-data',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/templates/status',
+  pathname: '/api/ludus/templates/status',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/snapshots/list',
+  pathname: '/api/ludus/snapshots/list',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+Unexpected error fetching range: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async u (.next/server/app/api/ludus/ranges/[userID]/route.js:1:7800) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+Error in editor-data endpoint: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async na (.next/server/app/api/ludus/ranges/[userID]/editor-data/route.js:1:98562) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+Unexpected error fetching templates status: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async u (.next/server/app/api/ludus/templates/status/route.js:1:7382) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+Unexpected error fetching snapshots: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async u (.next/server/app/api/ludus/snapshots/list/route.js:1:7500) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/ranges/DEMO',
+  pathname: '/api/ludus/ranges/DEMO',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/ranges/DEMO/editor-data',
+  pathname: '/api/ludus/ranges/DEMO/editor-data',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/templates/status',
+  pathname: '/api/ludus/templates/status',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/snapshots/list',
+  pathname: '/api/ludus/snapshots/list',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+Unexpected error fetching range: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async u (.next/server/app/api/ludus/ranges/[userID]/route.js:1:7800) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+Unexpected error fetching templates status: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async u (.next/server/app/api/ludus/templates/status/route.js:1:7382) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+Error in editor-data endpoint: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async na (.next/server/app/api/ludus/ranges/[userID]/editor-data/route.js:1:98562) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+Unexpected error fetching snapshots: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async u (.next/server/app/api/ludus/snapshots/list/route.js:1:7500) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/ranges/DEMO/editor-data',
+  pathname: '/api/ludus/ranges/DEMO/editor-data',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+Error in editor-data endpoint: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async na (.next/server/app/api/ludus/ranges/[userID]/editor-data/route.js:1:98562) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/ansible?userID=mock-user-id',
+  pathname: '/api/ludus/ansible',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+{"level":"INFO","time":1754412258880,"pid":79557,"hostname":"Suibhnes-MacBook-Pro.local","context":"API","method":"GET","endpoint":"/api/ludus/ansible","hasData":true,"msg":"API request"}
+{"level":"DEBUG","time":1754412258880,"pid":79557,"hostname":"Suibhnes-MacBook-Pro.local","context":"API","userID":"mock-user-id","requestUrl":"http://localhost:3000/api/ludus/ansible?userID=mock-user-id","msg":"Ansible GET request details"}
+{"level":"DEBUG","time":1754412258880,"pid":79557,"hostname":"Suibhnes-MacBook-Pro.local","context":"API","requestParams":{"userID":{"userID":"mock-user-id"}},"msg":"Ludus API request parameters"}
+{"level":"ERROR","time":1754412258901,"pid":79557,"hostname":"Suibhnes-MacBook-Pro.local","context":"API","error":"fetch failed","msg":"Unexpected error in Ansible API"}
+{"level":"ERROR","time":1754412258901,"pid":79557,"hostname":"Suibhnes-MacBook-Pro.local","context":"API","method":"GET","endpoint":"/api/ludus/ansible","status":500,"error":"fetch failed","msg":"API request failed"}
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/ansible?userID=mock-user-id',
+  pathname: '/api/ludus/ansible',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+{"level":"INFO","time":1754412259909,"pid":79557,"hostname":"Suibhnes-MacBook-Pro.local","context":"API","method":"GET","endpoint":"/api/ludus/ansible","hasData":true,"msg":"API request"}
+{"level":"DEBUG","time":1754412259910,"pid":79557,"hostname":"Suibhnes-MacBook-Pro.local","context":"API","userID":"mock-user-id","requestUrl":"http://localhost:3000/api/ludus/ansible?userID=mock-user-id","msg":"Ansible GET request details"}
+{"level":"DEBUG","time":1754412259910,"pid":79557,"hostname":"Suibhnes-MacBook-Pro.local","context":"API","requestParams":{"userID":{"userID":"mock-user-id"}},"msg":"Ludus API request parameters"}
+{"level":"ERROR","time":1754412259929,"pid":79557,"hostname":"Suibhnes-MacBook-Pro.local","context":"API","error":"fetch failed","msg":"Unexpected error in Ansible API"}
+{"level":"ERROR","time":1754412259930,"pid":79557,"hostname":"Suibhnes-MacBook-Pro.local","context":"API","method":"GET","endpoint":"/api/ludus/ansible","status":500,"error":"fetch failed","msg":"API request failed"}
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/ansible?userID=mock-user-id',
+  pathname: '/api/ludus/ansible',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+{"level":"INFO","time":1754412261938,"pid":79557,"hostname":"Suibhnes-MacBook-Pro.local","context":"API","method":"GET","endpoint":"/api/ludus/ansible","hasData":true,"msg":"API request"}
+{"level":"DEBUG","time":1754412261938,"pid":79557,"hostname":"Suibhnes-MacBook-Pro.local","context":"API","userID":"mock-user-id","requestUrl":"http://localhost:3000/api/ludus/ansible?userID=mock-user-id","msg":"Ansible GET request details"}
+{"level":"DEBUG","time":1754412261938,"pid":79557,"hostname":"Suibhnes-MacBook-Pro.local","context":"API","requestParams":{"userID":{"userID":"mock-user-id"}},"msg":"Ludus API request parameters"}
+{"level":"ERROR","time":1754412261958,"pid":79557,"hostname":"Suibhnes-MacBook-Pro.local","context":"API","error":"fetch failed","msg":"Unexpected error in Ansible API"}
+{"level":"ERROR","time":1754412261958,"pid":79557,"hostname":"Suibhnes-MacBook-Pro.local","context":"API","method":"GET","endpoint":"/api/ludus/ansible","status":500,"error":"fetch failed","msg":"API request failed"}
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/templates/status',
+  pathname: '/api/ludus/templates/status',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+Unexpected error fetching templates status: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async u (.next/server/app/api/ludus/templates/status/route.js:1:7382) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/templates/status',
+  pathname: '/api/ludus/templates/status',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+Unexpected error fetching templates status: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async u (.next/server/app/api/ludus/templates/status/route.js:1:7382) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/templates/status',
+  pathname: '/api/ludus/templates/status',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+Unexpected error fetching templates status: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async u (.next/server/app/api/ludus/templates/status/route.js:1:7382) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/templates/status',
+  pathname: '/api/ludus/templates/status',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+Unexpected error fetching templates status: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async u (.next/server/app/api/ludus/templates/status/route.js:1:7382) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/templates/status',
+  pathname: '/api/ludus/templates/status',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+Unexpected error fetching templates status: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async u (.next/server/app/api/ludus/templates/status/route.js:1:7382) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/templates/status',
+  pathname: '/api/ludus/templates/status',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+Unexpected error fetching templates status: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async u (.next/server/app/api/ludus/templates/status/route.js:1:7382) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/snapshots/list',
+  pathname: '/api/ludus/snapshots/list',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+Unexpected error fetching snapshots: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async u (.next/server/app/api/ludus/snapshots/list/route.js:1:7500) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/snapshots/list',
+  pathname: '/api/ludus/snapshots/list',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+Unexpected error fetching snapshots: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async u (.next/server/app/api/ludus/snapshots/list/route.js:1:7500) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/snapshots/list',
+  pathname: '/api/ludus/snapshots/list',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+Unexpected error fetching snapshots: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async u (.next/server/app/api/ludus/snapshots/list/route.js:1:7500) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/templates/status',
+  pathname: '/api/ludus/templates/status',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+Unexpected error fetching templates status: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async u (.next/server/app/api/ludus/templates/status/route.js:1:7382) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/templates/status',
+  pathname: '/api/ludus/templates/status',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+Unexpected error fetching templates status: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async u (.next/server/app/api/ludus/templates/status/route.js:1:7382) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}
+{ context: 'AUTH' } {
+  context: 'Middleware',
+  bypassActive: true,
+  url: 'http://localhost:3000/api/ludus/templates/status',
+  pathname: '/api/ludus/templates/status',
+  method: 'GET'
+} '🔓 Authentication bypassed in Middleware'
+Unexpected error fetching templates status: TypeError: fetch failed
+    at async g (.next/server/app/api/ludus/ansible/collection/route.js:1:4417)
+    at async u (.next/server/app/api/ludus/templates/status/route.js:1:7382) {
+  [cause]: [Error: unable to verify the first certificate] {
+    code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
+  }
+}

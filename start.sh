@@ -5,20 +5,47 @@ set -e
 
 echo "🚀 Starting Ludus Workshop Environment (Native)..."
 
-# Check if required tools are installed
+# Check if required tools are installed and install if missing
 if ! command -v node &> /dev/null; then
-    echo "❌ Node.js is not installed. Please install Node.js first."
-    exit 1
+    echo "📦 Node.js not found. Installing..."
+    if command -v apt &> /dev/null; then
+        sudo apt update && sudo apt install -y nodejs
+    elif command -v yum &> /dev/null; then
+        sudo yum install -y nodejs
+    elif command -v brew &> /dev/null; then
+        brew install node
+    else
+        echo "❌ No supported package manager found. Please install Node.js manually."
+        exit 1
+    fi
 fi
 
 if ! command -v npm &> /dev/null; then
-    echo "❌ npm is not installed. Please install npm first."
-    exit 1
+    echo "📦 npm not found. Installing..."
+    if command -v apt &> /dev/null; then
+        sudo apt install -y npm
+    elif command -v yum &> /dev/null; then
+        sudo yum install -y npm
+    elif command -v brew &> /dev/null; then
+        brew install npm
+    else
+        echo "❌ No supported package manager found. Please install npm manually."
+        exit 1
+    fi
 fi
 
 if ! command -v python3 &> /dev/null; then
-    echo "❌ Python3 is not installed. Please install Python3 first."
-    exit 1
+    echo "📦 Python3 not found. Installing..."
+    if command -v apt &> /dev/null; then
+        sudo apt install -y python3
+    elif command -v yum &> /dev/null; then
+        sudo yum install -y python3
+    elif command -v brew &> /dev/null; then
+        brew install python3
+    else
+        echo "❌ No supported package manager found. Please install Python3 manually."
+        exit 1
+    fi
 fi
 
 # Install ttyd if not present

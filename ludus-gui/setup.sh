@@ -7,18 +7,17 @@ set -e
 
 echo "🚀 Setting up Ludus GUI development environment..."
 
-# Check if bun is installed
-if ! command -v bun &> /dev/null; then
-    echo "❌ Bun is not installed. Please install it first:"
-    echo "   curl -fsSL https://bun.sh/install | bash"
+# Check if npm is installed
+if ! command -v npm &> /dev/null; then
+    echo "❌ npm is not installed. Please install Node.js and npm first."
     exit 1
 fi
 
-echo "✅ Bun found"
+echo "✅ npm found"
 
 # Install dependencies
 echo "📦 Installing dependencies..."
-bun install
+npm install --legacy-peer-deps --ignore-scripts
 
 echo "✅ Dependencies installed"
 
@@ -48,7 +47,7 @@ fi
 
 # Type check
 echo "🔍 Running type check..."
-if bun run typecheck:app; then
+if npm run typecheck:app; then
     echo "✅ Type check passed"
 else
     echo "⚠️  Type check failed. You may need to fix type errors before running."
@@ -63,5 +62,5 @@ echo "   - LUDUS_SSH_HOST (your Ludus server hostname for SSH tunnel)"
 echo "   - LUDUS_SSH_USER (SSH username for tunnel access)"
 echo ""
 echo "2. Start development:"
-echo "   For basic features: bun run dev"
-echo "   For admin features: bun run dev:with-tunnel"
+echo "   For basic features: npm run dev"
+echo "   For admin features: npm run dev:with-tunnel"
