@@ -44,7 +44,7 @@ LUDUS_SSH_USER=root
 LOG_LEVEL=debug
 
 # Authentication (optional - set to true to disable auth for testing)
-# NEXT_PUBLIC_DISABLE_AUTH=true
+NEXT_PUBLIC_DISABLE_AUTH=true
 EOF
     echo "📝 Created .env.local template."
 else
