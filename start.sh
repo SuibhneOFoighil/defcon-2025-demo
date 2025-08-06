@@ -51,7 +51,7 @@ fi
 # Install yarn globally if not present
 if ! command -v yarn &> /dev/null; then
     echo "📦 Installing yarn globally..."
-    npm install -g yarn
+    sudo npm install -g yarn
     echo "✅ yarn installed successfully"
 else
     echo "✅ yarn found"
