@@ -7,17 +7,23 @@ set -e
 
 echo "🚀 Setting up Ludus GUI development environment..."
 
-# Check if npm is installed
-if ! command -v npm &> /dev/null; then
-    echo "❌ npm is not installed. Please install Node.js and npm first."
+# Check if yarn is installed, fallback to npm
+if command -v yarn &> /dev/null; then
+    echo "✅ yarn found"
+    PACKAGE_MANAGER="yarn"
+    INSTALL_CMD="yarn install"
+elif command -v npm &> /dev/null; then
+    echo "✅ npm found"
+    PACKAGE_MANAGER="npm"
+    INSTALL_CMD="npm install --legacy-peer-deps --ignore-scripts"
+else
+    echo "❌ Neither yarn nor npm is installed. Please install Node.js and a package manager first."
     exit 1
 fi
 
-echo "✅ npm found"
-
 # Install dependencies
-echo "📦 Installing dependencies..."
-npm install --legacy-peer-deps --ignore-scripts
+echo "📦 Installing dependencies with $PACKAGE_MANAGER..."
+$INSTALL_CMD
 
 echo "✅ Dependencies installed"
 
@@ -47,7 +53,13 @@ fi
 
 # Type check
 echo "🔍 Running type check..."
-if npm run typecheck:app; then
+if [ "$PACKAGE_MANAGER" = "yarn" ]; then
+    TYPE_CHECK_CMD="yarn typecheck:app"
+else
+    TYPE_CHECK_CMD="npm run typecheck:app"
+fi
+
+if $TYPE_CHECK_CMD; then
     echo "✅ Type check passed"
 else
     echo "⚠️  Type check failed. You may need to fix type errors before running."
@@ -62,5 +74,10 @@ echo "   - LUDUS_SSH_HOST (your Ludus server hostname for SSH tunnel)"
 echo "   - LUDUS_SSH_USER (SSH username for tunnel access)"
 echo ""
 echo "2. Start development:"
-echo "   For basic features: npm run dev"
-echo "   For admin features: npm run dev:with-tunnel"
+if [ "$PACKAGE_MANAGER" = "yarn" ]; then
+    echo "   For basic features: yarn dev"
+    echo "   For admin features: yarn dev:with-tunnel"
+else
+    echo "   For basic features: npm run dev"
+    echo "   For admin features: npm run dev:with-tunnel"
+fi

@@ -48,6 +48,15 @@ if ! command -v npm &> /dev/null; then
     exit 1
 fi
 
+# Install yarn globally if not present
+if ! command -v yarn &> /dev/null; then
+    echo "📦 Installing yarn globally..."
+    npm install -g yarn
+    echo "✅ yarn installed successfully"
+else
+    echo "✅ yarn found"
+fi
+
 # Install Python3 manually if needed (usually pre-installed on Kali)
 if ! command -v python3 &> /dev/null; then
     echo "📦 Python3 not found. Installing manually..."
