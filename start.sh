@@ -167,7 +167,7 @@ sleep 1
 
 # Start ttyd
 echo "🚀 Starting ttyd on port 7681..."
-cd ~ && ttyd -p 7681 -i 0.0.0.0 -t fontSize=18 -t 'theme={"background": "#1e1e1e"}' /bin/bash &
+cd ~ && ttyd -p 7681 -i 0.0.0.0 -t fontSize=18 -t 'theme={"background": "#1e1e1e"}' -W zsh > /tmp/ttyd.log 2>&1 &
 TTYD_PID=$!
 sleep 1
 if kill -0 "$TTYD_PID" 2>/dev/null; then
@@ -185,14 +185,14 @@ cd ludus-gui
 echo "🔨 Building Ludus GUI for production..."
 npm run build
 echo "🚀 Starting Ludus GUI in production mode..."
-npx next start -H 0.0.0.0 &
+npx next start -H 0.0.0.0 > /tmp/ludus-gui.log 2>&1 &
 LUDUS_PID=$!
 cd ..
 
 # Start slides server
 echo "🚀 Starting slides server on port 8000..."
 cd shell-n-slides
-python3 -m http.server 8000 --bind 0.0.0.0 &
+python3 -m http.server 8000 --bind 0.0.0.0 > /tmp/slides.log 2>&1 &
 SLIDES_PID=$!
 cd ..
 
