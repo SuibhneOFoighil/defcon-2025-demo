@@ -18,7 +18,7 @@ if ! command -v node &> /dev/null; then
         *) echo "❌ Unsupported architecture: $ARCH"; exit 1 ;;
     esac
     
-    NODE_VERSION="v20.18.1"
+    NODE_VERSION="v22.13.0"
     NODE_TARBALL="node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.xz"
     NODE_URL="https://nodejs.org/dist/${NODE_VERSION}/${NODE_TARBALL}"
     
