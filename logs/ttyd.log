@@ -1,193 +1,193 @@
-[2025/08/06 12:01:17:7357] N: ttyd 1.7.7-unknown (libwebsockets 4.4.0-unknown)
-[2025/08/06 12:01:17:7364] N: tty configuration:
-[2025/08/06 12:01:17:7364] N:   start command: /bin/bash
-[2025/08/06 12:01:17:7364] N:   close signal: SIGHUP (1)
-[2025/08/06 12:01:17:7364] N:   terminal type: xterm-256color
-[2025/08/06 12:01:17:7376] N:    /opt/homebrew/Cellar/libwebsockets/4.4.1/lib/libwebsockets-evlib_uv.dylib
-[2025/08/06 12:01:17:7377] N: lws_create_context: LWS: 4.4.0-unknown, NET CLI SRV H1 H2 WS SS-JSON-POL ConMon IPV6-off
-[2025/08/06 12:01:17:7397] N: elops_init_pt_uv:  Using foreign event loop...
-[2025/08/06 12:01:17:7430] N: [vh|1|default|0.0.0.0|0.0.0.0|7681]: lws_socket_bind: source ads 0.0.0.0
-[2025/08/06 12:01:17:7430] N:  Listening on port: 7681
-[2025/08/06 12:01:17:9434] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:17:9666] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:17:9832] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:17:9847] N: started process, pid: 19305
-[2025/08/06 12:01:18:0823] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:18:0823] N: killing process, pid: 19305
-[2025/08/06 12:01:18:0829] N: process killed with signal 1, pid: 19305
-[2025/08/06 12:01:18:1349] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:18:1492] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:18:1643] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:18:1657] N: started process, pid: 19306
-[2025/08/06 12:01:18:2876] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:18:2877] N: killing process, pid: 19306
-[2025/08/06 12:01:18:2882] N: process killed with signal 1, pid: 19306
-[2025/08/06 12:01:18:3425] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:18:3555] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:18:3695] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:18:3710] N: started process, pid: 19307
-[2025/08/06 12:01:18:4886] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:18:4886] N: killing process, pid: 19307
-[2025/08/06 12:01:18:4891] N: process killed with signal 1, pid: 19307
-[2025/08/06 12:01:18:5428] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:18:5558] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:18:5694] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:18:5708] N: started process, pid: 19308
-[2025/08/06 12:01:18:6917] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:18:6918] N: killing process, pid: 19308
-[2025/08/06 12:01:18:6923] N: process killed with signal 1, pid: 19308
-[2025/08/06 12:01:18:7322] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:18:7459] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:18:7599] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:18:7609] N: started process, pid: 19311
-[2025/08/06 12:01:18:8954] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:18:8954] N: killing process, pid: 19311
-[2025/08/06 12:01:18:8963] N: process killed with signal 1, pid: 19311
-[2025/08/06 12:01:18:9336] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:18:9489] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:18:9630] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:18:9643] N: started process, pid: 19317
-[2025/08/06 12:01:19:1001] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:19:1002] N: killing process, pid: 19317
-[2025/08/06 12:01:19:1008] N: process killed with signal 1, pid: 19317
-[2025/08/06 12:01:19:1443] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:19:1586] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:19:1720] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:19:1732] N: started process, pid: 19319
-[2025/08/06 12:01:19:3055] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:19:3056] N: killing process, pid: 19319
-[2025/08/06 12:01:19:3066] N: process killed with signal 1, pid: 19319
-[2025/08/06 12:01:19:3513] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:19:3661] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:19:3803] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:19:3816] N: started process, pid: 19323
-[2025/08/06 12:01:19:5105] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:19:5106] N: killing process, pid: 19323
-[2025/08/06 12:01:19:5112] N: process killed with signal 1, pid: 19323
-[2025/08/06 12:01:19:5586] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:19:5730] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:19:5867] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:19:5883] N: started process, pid: 19324
-[2025/08/06 12:01:19:7157] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:19:7157] N: killing process, pid: 19324
-[2025/08/06 12:01:19:7163] N: process killed with signal 1, pid: 19324
-[2025/08/06 12:01:19:7551] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:19:7705] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:19:7846] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:19:7858] N: started process, pid: 19325
-[2025/08/06 12:01:19:9192] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:19:9193] N: killing process, pid: 19325
-[2025/08/06 12:01:19:9198] N: process killed with signal 1, pid: 19325
-[2025/08/06 12:01:19:9699] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:19:9841] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:19:9972] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:19:9988] N: started process, pid: 19326
-[2025/08/06 12:01:20:1263] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:20:1264] N: killing process, pid: 19326
-[2025/08/06 12:01:20:1272] N: process killed with signal 1, pid: 19326
-[2025/08/06 12:01:20:1769] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:20:1906] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:20:2041] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:20:2053] N: started process, pid: 19327
-[2025/08/06 12:01:20:3314] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:20:3314] N: killing process, pid: 19327
-[2025/08/06 12:01:20:3324] N: process killed with signal 1, pid: 19327
-[2025/08/06 12:01:20:3769] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:20:3919] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:20:4062] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:20:4076] N: started process, pid: 19328
-[2025/08/06 12:01:20:5360] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:20:5361] N: killing process, pid: 19328
-[2025/08/06 12:01:20:5366] N: process killed with signal 1, pid: 19328
-[2025/08/06 12:01:20:5891] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:20:6028] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:20:6168] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:20:6176] N: started process, pid: 19329
-[2025/08/06 12:01:20:7393] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:20:7394] N: killing process, pid: 19329
-[2025/08/06 12:01:20:7400] N: process killed with signal 1, pid: 19329
-[2025/08/06 12:01:20:7837] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:20:7986] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:20:8131] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:20:8139] N: started process, pid: 19330
-[2025/08/06 12:01:20:9392] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:20:9393] N: killing process, pid: 19330
-[2025/08/06 12:01:20:9399] N: process killed with signal 1, pid: 19330
-[2025/08/06 12:01:20:9907] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:21:0040] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:21:0179] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:21:0187] N: started process, pid: 19332
-[2025/08/06 12:01:21:1458] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:21:1459] N: killing process, pid: 19332
-[2025/08/06 12:01:21:1463] N: process killed with signal 1, pid: 19332
-[2025/08/06 12:01:21:1873] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:21:2010] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:21:2161] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:21:2169] N: started process, pid: 19348
-[2025/08/06 12:01:21:3439] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:21:3439] N: killing process, pid: 19348
-[2025/08/06 12:01:21:3445] N: process killed with signal 1, pid: 19348
-[2025/08/06 12:01:21:3852] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:21:3988] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:21:4121] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:21:4129] N: started process, pid: 19349
-[2025/08/06 12:01:21:5502] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:21:5503] N: killing process, pid: 19349
-[2025/08/06 12:01:21:5508] N: process killed with signal 1, pid: 19349
-[2025/08/06 12:01:21:6016] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:21:6154] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:21:6289] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:21:6300] N: started process, pid: 19351
-[2025/08/06 12:01:21:7526] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:21:7526] N: killing process, pid: 19351
-[2025/08/06 12:01:21:7532] N: process killed with signal 1, pid: 19351
-[2025/08/06 12:01:21:7995] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:21:8138] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:21:8283] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:21:8298] N: started process, pid: 19353
-[2025/08/06 12:01:21:9589] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:21:9590] N: killing process, pid: 19353
-[2025/08/06 12:01:21:9600] N: process killed with signal 1, pid: 19353
-[2025/08/06 12:01:21:9980] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:22:0127] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:22:0282] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:22:0295] N: started process, pid: 19354
-[2025/08/06 12:01:22:1606] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:22:1606] N: killing process, pid: 19354
-[2025/08/06 12:01:22:1623] N: process killed with signal 1, pid: 19354
-[2025/08/06 12:01:22:2027] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:22:2168] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:22:2305] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:22:2316] N: started process, pid: 19355
-[2025/08/06 12:01:22:3613] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:22:3613] N: killing process, pid: 19355
-[2025/08/06 12:01:22:3618] N: process killed with signal 1, pid: 19355
-[2025/08/06 12:01:22:3995] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:22:4139] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:22:4284] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:22:4295] N: started process, pid: 19356
-[2025/08/06 12:01:22:5664] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:22:5665] N: killing process, pid: 19356
-[2025/08/06 12:01:22:5671] N: process killed with signal 1, pid: 19356
-[2025/08/06 12:01:22:6024] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:22:6160] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:22:6307] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:22:6318] N: started process, pid: 19359
-[2025/08/06 12:01:22:7670] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:22:7670] N: killing process, pid: 19359
-[2025/08/06 12:01:22:7676] N: process killed with signal 1, pid: 19359
-[2025/08/06 12:01:22:8135] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:22:8275] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:22:8626] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:22:8716] N: started process, pid: 19360
-[2025/08/06 12:01:23:0813] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:23:0814] N: killing process, pid: 19360
-[2025/08/06 12:01:23:0820] N: process killed with signal 1, pid: 19360
-[2025/08/06 12:01:23:1252] N: HTTP / - 127.0.0.1
-[2025/08/06 12:01:23:1390] N: HTTP /token - 127.0.0.1
-[2025/08/06 12:01:23:1533] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/06 12:01:23:1544] N: started process, pid: 19361
-[2025/08/06 12:01:23:2251] N: received signal: SIGINT (2), exiting...
-[2025/08/06 12:01:23:2252] N: send ^C to force exit.
-[2025/08/06 12:01:23:2253] N: WS closed from 127.0.0.1, clients: 0
-[2025/08/06 12:01:23:2253] N: killing process, pid: 19361
+[2025/08/06 12:08:38:5476] N: ttyd 1.7.7-unknown (libwebsockets 4.4.0-unknown)
+[2025/08/06 12:08:38:5482] N: tty configuration:
+[2025/08/06 12:08:38:5482] N:   start command: /bin/bash
+[2025/08/06 12:08:38:5482] N:   close signal: SIGHUP (1)
+[2025/08/06 12:08:38:5482] N:   terminal type: xterm-256color
+[2025/08/06 12:08:38:5494] N:    /opt/homebrew/Cellar/libwebsockets/4.4.1/lib/libwebsockets-evlib_uv.dylib
+[2025/08/06 12:08:38:5494] N: lws_create_context: LWS: 4.4.0-unknown, NET CLI SRV H1 H2 WS SS-JSON-POL ConMon IPV6-off
+[2025/08/06 12:08:38:5515] N: elops_init_pt_uv:  Using foreign event loop...
+[2025/08/06 12:08:38:5547] N: [vh|1|default|0.0.0.0|0.0.0.0|7681]: lws_socket_bind: source ads 0.0.0.0
+[2025/08/06 12:08:38:5547] N:  Listening on port: 7681
+[2025/08/06 12:08:38:8042] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:38:8289] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:38:8447] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:38:8489] N: started process, pid: 20196
+[2025/08/06 12:08:38:9422] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:38:9423] N: killing process, pid: 20196
+[2025/08/06 12:08:38:9429] N: process killed with signal 1, pid: 20196
+[2025/08/06 12:08:38:9900] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:39:0039] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:39:0179] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:39:0193] N: started process, pid: 20197
+[2025/08/06 12:08:39:1480] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:39:1481] N: killing process, pid: 20197
+[2025/08/06 12:08:39:1487] N: process killed with signal 1, pid: 20197
+[2025/08/06 12:08:39:2102] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:39:2237] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:39:2378] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:39:2391] N: started process, pid: 20198
+[2025/08/06 12:08:39:3497] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:39:3498] N: killing process, pid: 20198
+[2025/08/06 12:08:39:3503] N: process killed with signal 1, pid: 20198
+[2025/08/06 12:08:39:4087] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:39:4209] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:39:4378] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:39:4418] N: started process, pid: 20199
+[2025/08/06 12:08:39:5504] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:39:5505] N: killing process, pid: 20199
+[2025/08/06 12:08:39:5511] N: process killed with signal 1, pid: 20199
+[2025/08/06 12:08:39:5979] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:39:6125] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:39:6270] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:39:6288] N: started process, pid: 20204
+[2025/08/06 12:08:39:7514] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:39:7514] N: killing process, pid: 20204
+[2025/08/06 12:08:39:7520] N: process killed with signal 1, pid: 20204
+[2025/08/06 12:08:39:7920] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:39:8066] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:39:8212] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:39:8225] N: started process, pid: 20208
+[2025/08/06 12:08:39:9558] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:39:9558] N: killing process, pid: 20208
+[2025/08/06 12:08:39:9564] N: process killed with signal 1, pid: 20208
+[2025/08/06 12:08:39:9994] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:40:0138] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:40:0270] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:40:0284] N: started process, pid: 20211
+[2025/08/06 12:08:40:1579] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:40:1580] N: killing process, pid: 20211
+[2025/08/06 12:08:40:1585] N: process killed with signal 1, pid: 20211
+[2025/08/06 12:08:40:1988] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:40:2134] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:40:2264] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:40:2277] N: started process, pid: 20215
+[2025/08/06 12:08:40:3629] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:40:3629] N: killing process, pid: 20215
+[2025/08/06 12:08:40:3637] N: process killed with signal 1, pid: 20215
+[2025/08/06 12:08:40:4061] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:40:4210] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:40:4362] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:40:4373] N: started process, pid: 20216
+[2025/08/06 12:08:40:5669] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:40:5670] N: killing process, pid: 20216
+[2025/08/06 12:08:40:5677] N: process killed with signal 1, pid: 20216
+[2025/08/06 12:08:40:6047] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:40:6194] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:40:6331] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:40:6343] N: started process, pid: 20217
+[2025/08/06 12:08:40:7724] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:40:7724] N: killing process, pid: 20217
+[2025/08/06 12:08:40:7729] N: process killed with signal 1, pid: 20217
+[2025/08/06 12:08:40:8108] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:40:8247] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:40:8384] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:40:8393] N: started process, pid: 20218
+[2025/08/06 12:08:40:9759] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:40:9760] N: killing process, pid: 20218
+[2025/08/06 12:08:40:9766] N: process killed with signal 1, pid: 20218
+[2025/08/06 12:08:41:0293] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:41:0443] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:41:0580] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:41:0589] N: started process, pid: 20219
+[2025/08/06 12:08:41:1832] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:41:1849] N: killing process, pid: 20219
+[2025/08/06 12:08:41:1857] N: process killed with signal 1, pid: 20219
+[2025/08/06 12:08:41:2216] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:41:2361] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:41:2522] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:41:2536] N: started process, pid: 20220
+[2025/08/06 12:08:41:3876] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:41:3877] N: killing process, pid: 20220
+[2025/08/06 12:08:41:3883] N: process killed with signal 1, pid: 20220
+[2025/08/06 12:08:41:4290] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:41:4460] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:41:4571] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:41:4580] N: started process, pid: 20221
+[2025/08/06 12:08:41:5934] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:41:5935] N: killing process, pid: 20221
+[2025/08/06 12:08:41:5942] N: process killed with signal 1, pid: 20221
+[2025/08/06 12:08:41:6316] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:41:6480] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:41:6621] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:41:6629] N: started process, pid: 20222
+[2025/08/06 12:08:41:7941] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:41:7941] N: killing process, pid: 20222
+[2025/08/06 12:08:41:7948] N: process killed with signal 1, pid: 20222
+[2025/08/06 12:08:41:8356] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:41:8516] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:41:8658] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:41:8668] N: started process, pid: 20225
+[2025/08/06 12:08:42:0231] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:42:0291] N: killing process, pid: 20225
+[2025/08/06 12:08:42:0297] N: process killed with signal 1, pid: 20225
+[2025/08/06 12:08:42:0763] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:42:0919] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:42:1087] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:42:1099] N: started process, pid: 20227
+[2025/08/06 12:08:42:2018] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:42:2019] N: killing process, pid: 20227
+[2025/08/06 12:08:42:2026] N: process killed with signal 1, pid: 20227
+[2025/08/06 12:08:42:2443] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:42:2583] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:42:2719] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:42:2727] N: started process, pid: 20243
+[2025/08/06 12:08:42:4053] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:42:4054] N: killing process, pid: 20243
+[2025/08/06 12:08:42:4058] N: process killed with signal 1, pid: 20243
+[2025/08/06 12:08:42:4540] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:42:4681] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:42:4820] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:42:4830] N: started process, pid: 20244
+[2025/08/06 12:08:42:6074] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:42:6084] N: killing process, pid: 20244
+[2025/08/06 12:08:42:6088] N: process killed with signal 1, pid: 20244
+[2025/08/06 12:08:42:6498] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:42:6635] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:42:6779] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:42:6791] N: started process, pid: 20246
+[2025/08/06 12:08:42:8125] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:42:8126] N: killing process, pid: 20246
+[2025/08/06 12:08:42:8137] N: process killed with signal 1, pid: 20246
+[2025/08/06 12:08:42:8593] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:42:8736] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:42:8877] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:42:8889] N: started process, pid: 20248
+[2025/08/06 12:08:43:0152] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:43:0153] N: killing process, pid: 20248
+[2025/08/06 12:08:43:0160] N: process killed with signal 1, pid: 20248
+[2025/08/06 12:08:43:0661] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:43:0806] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:43:0946] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:43:0954] N: started process, pid: 20249
+[2025/08/06 12:08:43:2150] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:43:2150] N: killing process, pid: 20249
+[2025/08/06 12:08:43:2156] N: process killed with signal 1, pid: 20249
+[2025/08/06 12:08:43:2658] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:43:2795] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:43:2947] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:43:2963] N: started process, pid: 20250
+[2025/08/06 12:08:43:4232] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:43:4232] N: killing process, pid: 20250
+[2025/08/06 12:08:43:4240] N: process killed with signal 1, pid: 20250
+[2025/08/06 12:08:43:4696] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:43:4840] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:43:4978] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:43:4988] N: started process, pid: 20251
+[2025/08/06 12:08:43:6466] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:43:6483] N: killing process, pid: 20251
+[2025/08/06 12:08:43:6508] N: process killed with signal 1, pid: 20251
+[2025/08/06 12:08:43:7006] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:43:7147] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:43:7294] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:43:7305] N: started process, pid: 20252
+[2025/08/06 12:08:43:8304] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:43:8304] N: killing process, pid: 20252
+[2025/08/06 12:08:43:8309] N: process killed with signal 1, pid: 20252
+[2025/08/06 12:08:43:8795] N: HTTP / - 127.0.0.1
+[2025/08/06 12:08:43:8941] N: HTTP /token - 127.0.0.1
+[2025/08/06 12:08:43:9078] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/06 12:08:43:9086] N: started process, pid: 20253
+[2025/08/06 12:08:43:9350] N: received signal: SIGINT (2), exiting...
+[2025/08/06 12:08:43:9352] N: send ^C to force exit.
+[2025/08/06 12:08:43:9390] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/06 12:08:43:9390] N: killing process, pid: 20253

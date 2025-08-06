@@ -6,8 +6,32 @@ set -e
 echo "🚀 Starting Ludus Workshop Environment (Native)..."
 
 # Check if required tools are installed and install if missing
+REQUIRED_NODE_MAJOR=22
+REQUIRED_NODE_MINOR=13
+
+# Check Node.js version and update if needed
+INSTALL_NODE=false
 if ! command -v node &> /dev/null; then
     echo "📦 Node.js not found. Installing via direct download..."
+    INSTALL_NODE=true
+else
+    CURRENT_NODE_VERSION=$(node --version)
+    echo "🔍 Current Node.js version: $CURRENT_NODE_VERSION"
+    
+    # Extract major and minor version numbers
+    CURRENT_MAJOR=$(echo $CURRENT_NODE_VERSION | sed 's/v\([0-9]*\)\.\([0-9]*\)\..*/\1/')
+    CURRENT_MINOR=$(echo $CURRENT_NODE_VERSION | sed 's/v\([0-9]*\)\.\([0-9]*\)\..*/\2/')
+    
+    if [ "$CURRENT_MAJOR" -lt "$REQUIRED_NODE_MAJOR" ] || 
+       [ "$CURRENT_MAJOR" -eq "$REQUIRED_NODE_MAJOR" -a "$CURRENT_MINOR" -lt "$REQUIRED_NODE_MINOR" ]; then
+        echo "⬆️  Node.js version is older than required (need v${REQUIRED_NODE_MAJOR}.${REQUIRED_NODE_MINOR}.0+). Updating..."
+        INSTALL_NODE=true
+    else
+        echo "✅ Node.js version is sufficient"
+    fi
+fi
+
+if [ "$INSTALL_NODE" = true ]; then
     
     # Detect architecture
     ARCH=$(uname -m)
