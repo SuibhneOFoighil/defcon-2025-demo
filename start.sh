@@ -145,9 +145,7 @@ fi
 # Install and start Ludus GUI
 echo "🚀 Starting Ludus GUI on port 3000..."
 cd ludus-gui
-if [ ! -d "node_modules" ]; then
-    echo "📦 Running Ludus GUI setup..."
-    ./setup.sh
+./setup.sh
 fi
 echo "🔨 Building Ludus GUI for production..."
 npm run build
@@ -190,8 +188,11 @@ fi
 echo ""
 echo "🎉 Ludus Workshop Environment is ready!"
 echo ""
-# Get network IP
-NETWORK_IP=$(ip route get 1.1.1.1 2>/dev/null | grep -oP 'src \K[^ ]+' | head -1)
+# Get network IP - prioritize WireGuard interface
+NETWORK_IP=$(ip addr show wg0 2>/dev/null | grep -oP 'inet \K[^/]+' | head -1)
+if [ -z "$NETWORK_IP" ]; then
+    NETWORK_IP=$(ip route get 1.1.1.1 2>/dev/null | grep -oP 'src \K[^ ]+' | head -1)
+fi
 if [ -z "$NETWORK_IP" ]; then
     NETWORK_IP=$(hostname -I | awk '{print $1}')
 fi

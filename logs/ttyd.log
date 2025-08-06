@@ -1,14 +1,38 @@
-[2025/08/05 15:44:45:9802] N: ttyd 1.7.7-unknown (libwebsockets 4.4.0-unknown)
-[2025/08/05 15:44:45:9810] N: tty configuration:
-[2025/08/05 15:44:45:9810] N:   start command: /bin/bash
-[2025/08/05 15:44:45:9811] N:   close signal: SIGHUP (1)
-[2025/08/05 15:44:45:9811] N:   terminal type: xterm-256color
-[2025/08/05 15:44:45:9825] N:    /opt/homebrew/Cellar/libwebsockets/4.4.1/lib/libwebsockets-evlib_uv.dylib
-[2025/08/05 15:44:45:9825] N: lws_create_context: LWS: 4.4.0-unknown, NET CLI SRV H1 H2 WS SS-JSON-POL ConMon IPV6-off
-[2025/08/05 15:44:45:9852] N: elops_init_pt_uv:  Using foreign event loop...
-[2025/08/05 15:44:45:9883] N: [vh|1|default|0.0.0.0|0.0.0.0|7681]: lws_socket_bind: source ads 0.0.0.0
-[2025/08/05 15:44:45:9883] N:  Listening on port: 7681
-[2025/08/05 15:45:03:9153] N: HTTP / - 127.0.0.1
-[2025/08/05 15:45:03:9571] N: HTTP /token - 127.0.0.1
-[2025/08/05 15:45:04:0426] N: WS   /ws - 127.0.0.1, clients: 1
-[2025/08/05 15:45:04:0439] N: started process, pid: 94335
+[2025/08/05 18:39:42:4710] N: ttyd 1.7.7-unknown (libwebsockets 4.4.0-unknown)
+[2025/08/05 18:39:42:4716] N: tty configuration:
+[2025/08/05 18:39:42:4716] N:   start command: /bin/bash
+[2025/08/05 18:39:42:4716] N:   close signal: SIGHUP (1)
+[2025/08/05 18:39:42:4716] N:   terminal type: xterm-256color
+[2025/08/05 18:39:42:4727] N:    /opt/homebrew/Cellar/libwebsockets/4.4.1/lib/libwebsockets-evlib_uv.dylib
+[2025/08/05 18:39:42:4727] N: lws_create_context: LWS: 4.4.0-unknown, NET CLI SRV H1 H2 WS SS-JSON-POL ConMon IPV6-off
+[2025/08/05 18:39:42:4753] N: elops_init_pt_uv:  Using foreign event loop...
+[2025/08/05 18:39:42:4794] N: [vh|1|default|0.0.0.0|0.0.0.0|7681]: lws_socket_bind: source ads 0.0.0.0
+[2025/08/05 18:39:42:4794] N:  Listening on port: 7681
+[2025/08/05 18:40:06:4830] N: HTTP / - 127.0.0.1
+[2025/08/05 18:40:06:5279] N: HTTP /token - 127.0.0.1
+[2025/08/05 18:40:06:5733] N: WS   /ws - 127.0.0.1, clients: 1
+[2025/08/05 18:40:06:5758] N: started process, pid: 4342
+[2025/08/05 18:41:21:2793] N: HTTP / - 127.0.0.1
+[2025/08/05 18:41:21:3141] N: HTTP /token - 127.0.0.1
+[2025/08/05 18:41:21:3245] N: WS   /ws - 127.0.0.1, clients: 2
+[2025/08/05 18:41:21:3297] N: started process, pid: 4521
+[2025/08/05 18:43:47:1437] N: WS closed from 127.0.0.1, clients: 1
+[2025/08/05 18:43:47:1456] N: killing process, pid: 4521
+[2025/08/05 18:43:47:1464] N: process killed with signal 1, pid: 4521
+[2025/08/05 18:43:47:1830] N: HTTP / - 127.0.0.1
+[2025/08/05 18:43:47:2184] N: HTTP /token - 127.0.0.1
+[2025/08/05 18:43:47:2259] N: WS   /ws - 127.0.0.1, clients: 2
+[2025/08/05 18:43:47:2310] N: started process, pid: 4863
+[2025/08/05 18:44:03:5008] N: WS closed from 127.0.0.1, clients: 1
+[2025/08/05 18:44:03:5010] N: killing process, pid: 4863
+[2025/08/05 18:44:03:5017] N: process killed with signal 1, pid: 4863
+[2025/08/05 18:44:03:5287] N: HTTP / - 127.0.0.1
+[2025/08/05 18:44:03:5421] N: HTTP /token - 127.0.0.1
+[2025/08/05 18:44:03:5491] N: WS   /ws - 127.0.0.1, clients: 2
+[2025/08/05 18:44:03:5533] N: started process, pid: 4894
+[2025/08/05 18:44:09:5896] N: received signal: SIGINT (2), exiting...
+[2025/08/05 18:44:09:5897] N: send ^C to force exit.
+[2025/08/05 18:44:09:5898] N: WS closed from 127.0.0.1, clients: 1
+[2025/08/05 18:44:09:5898] N: killing process, pid: 4894
+[2025/08/05 18:44:09:5899] N: WS closed from 127.0.0.1, clients: 0
+[2025/08/05 18:44:09:5899] N: killing process, pid: 4342
