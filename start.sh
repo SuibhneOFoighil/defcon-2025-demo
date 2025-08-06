@@ -139,10 +139,6 @@ if [ ! -f .env ]; then
     echo "⚠️  Please edit .env file with your Ludus API configuration"
 fi
 
-# Create logs directory
-echo "📁 Creating logs directory..."
-mkdir -p logs
-
 # Function to kill background processes on exit
 cleanup() {
     echo "🛑 Stopping services..."
@@ -171,7 +167,7 @@ sleep 1
 
 # Start ttyd
 echo "🚀 Starting ttyd on port 7681..."
-ttyd -p 7681 -i 0.0.0.0 -t fontSize=18 -t 'theme={"background": "#1e1e1e"}' -W /bin/bash > logs/ttyd.log 2>&1 &
+cd ~ && ttyd -p 7681 -i 0.0.0.0 -t fontSize=18 -t 'theme={"background": "#1e1e1e"}' /bin/bash &
 TTYD_PID=$!
 sleep 1
 if kill -0 "$TTYD_PID" 2>/dev/null; then
@@ -189,14 +185,14 @@ cd ludus-gui
 echo "🔨 Building Ludus GUI for production..."
 npm run build
 echo "🚀 Starting Ludus GUI in production mode..."
-npx next start -H 0.0.0.0 > ../logs/ludus-gui.log 2>&1 &
+npx next start -H 0.0.0.0 &
 LUDUS_PID=$!
 cd ..
 
 # Start slides server
 echo "🚀 Starting slides server on port 8000..."
 cd shell-n-slides
-python3 -m http.server 8000 --bind 0.0.0.0 > ../logs/slides.log 2>&1 &
+python3 -m http.server 8000 --bind 0.0.0.0 &
 SLIDES_PID=$!
 cd ..
 
