@@ -146,7 +146,7 @@ fi
 echo "🚀 Starting Ludus GUI on port 3000..."
 cd ludus-gui
 ./setup.sh
-fi
+
 echo "🔨 Building Ludus GUI for production..."
 npm run build
 echo "🚀 Starting Ludus GUI in production mode..."

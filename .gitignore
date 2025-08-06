@@ -1,2 +1,3 @@
 .DS_Store
 ludus.conf
+logs/*
