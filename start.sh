@@ -52,6 +52,12 @@ fi
 if ! command -v yarn &> /dev/null; then
     echo "📦 Installing yarn globally..."
     sudo npm install -g yarn
+    
+    # Create symlinks for yarn
+    echo "🔗 Creating yarn symlinks..."
+    sudo ln -sf /opt/nodejs/bin/yarn /usr/local/bin/yarn
+    sudo ln -sf /opt/nodejs/bin/yarnpkg /usr/local/bin/yarnpkg
+    
     echo "✅ yarn installed successfully"
 else
     echo "✅ yarn found"
