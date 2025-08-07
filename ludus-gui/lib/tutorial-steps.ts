@@ -61,7 +61,7 @@ export const rangeEditorTutorialSteps: TutorialStep[] = [
     id: 'select-role',
     targetSelector: '[data-field="ansible-roles"]',
     title: 'Step 5: Select Ansible Role',
-    description: 'Choose an Ansible role to configure this VM automatically. Roles install software and configure settings.',
+    description: 'Choose an Ansible role to configure this VM automatically. Roles install software and configure settings. For this demo, select the "badsectorlabs.ludus_emux" role which will install the emux tool on the VM and start the emulated camera.',
     position: 'left',
     offset: { x: -10, y: 0 },
     validation: {
@@ -76,7 +76,7 @@ export const rangeEditorTutorialSteps: TutorialStep[] = [
     id: 'deploy-range',
     targetSelector: '[data-action="deploy-range"]',
     title: 'Step 6: Deploy Range',
-    description: 'Click Deploy to create your cyber range with the configured VMs and roles.',
+    description: 'Click Deploy to create your cyber range with the configured VMs and roles. Once the range is deployed, click the yellow arrow in the bottom right corner to move on.',
     position: 'left',
     offset: { x: -10, y: 0 },
     validation: {
