@@ -3,38 +3,8 @@ import type { AnsibleItem } from '@/lib/types/ansible'
 // Mock Ansible roles for viewport demo
 const mockAnsibleRoles: AnsibleItem[] = [
   {
-    name: 'security_camera',
+    name: 'badsectorlabs.ludus_emux',
     version: '1.0.0',
-    type: 'role',
-    global: false
-  },
-  {
-    name: 'web_server',
-    version: '2.1.0',
-    type: 'role',
-    global: false
-  },
-  {
-    name: 'database_server',
-    version: '1.5.2',
-    type: 'role',
-    global: false
-  },
-  {
-    name: 'firewall',
-    version: '3.0.1',
-    type: 'role',
-    global: false
-  },
-  {
-    name: 'monitoring',
-    version: '1.2.0',
-    type: 'role',
-    global: false
-  },
-  {
-    name: 'backup_service',
-    version: '2.0.0',
     type: 'role',
     global: false
   }
