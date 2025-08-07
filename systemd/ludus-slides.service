@@ -1,0 +1,18 @@
+[Unit]
+Description=Ludus Slides HTTP Server
+After=network.target
+PartOf=ludus.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/Users/suibhneofoighil/ludus/shell-n-slides
+Environment=HOME=/root
+ExecStart=/usr/bin/python3 -m http.server 80 --bind 0.0.0.0
+StandardOutput=journal
+StandardError=journal
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,20 @@
+[Unit]
+Description=Ludus GUI Web Interface
+After=network.target
+PartOf=ludus.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/Users/suibhneofoighil/ludus/ludus-gui
+Environment=HOME=/root
+Environment=NODE_ENV=production
+ExecStartPre=/bin/bash -c 'cd /Users/suibhneofoighil/ludus/ludus-gui && ./setup.sh && npm run build'
+ExecStart=/usr/local/bin/npx next start -H 0.0.0.0
+StandardOutput=journal
+StandardError=journal
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

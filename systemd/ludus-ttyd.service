@@ -1,0 +1,18 @@
+[Unit]
+Description=Ludus TTY Web Terminal
+After=network.target
+PartOf=ludus.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root
+Environment=HOME=/root
+ExecStart=/usr/local/bin/ttyd -p 7681 -i 0.0.0.0 -t fontSize=18 -t 'theme={"background": "#1e1e1e"}' -W zsh
+StandardOutput=journal
+StandardError=journal
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

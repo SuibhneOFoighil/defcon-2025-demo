@@ -139,20 +139,25 @@ if [ ! -f .env ]; then
     echo "⚠️  Please edit .env file with your Ludus API configuration"
 fi
 
-# Function to kill background processes on exit
+# Function to stop services on exit
 cleanup() {
     echo "🛑 Stopping services..."
-    if [ ! -z "$TTYD_PID" ] && kill -0 "$TTYD_PID" 2>/dev/null; then
-        kill "$TTYD_PID"
-        echo "   ✅ Stopped ttyd"
-    fi
-    if [ ! -z "$LUDUS_PID" ] && kill -0 "$LUDUS_PID" 2>/dev/null; then
-        kill "$LUDUS_PID"
-        echo "   ✅ Stopped Ludus GUI"
-    fi
-    if [ ! -z "$SLIDES_PID" ] && kill -0 "$SLIDES_PID" 2>/dev/null; then
-        kill "$SLIDES_PID"
-        echo "   ✅ Stopped Slides server"
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        systemctl stop ludus.service
+        echo "   ✅ Stopped all Ludus services"
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        if [ ! -z "$TTYD_PID" ] && kill -0 "$TTYD_PID" 2>/dev/null; then
+            kill "$TTYD_PID"
+            echo "   ✅ Stopped ttyd"
+        fi
+        if [ ! -z "$LUDUS_PID" ] && kill -0 "$LUDUS_PID" 2>/dev/null; then
+            kill "$LUDUS_PID"
+            echo "   ✅ Stopped Ludus GUI"
+        fi
+        if [ ! -z "$SLIDES_PID" ] && kill -0 "$SLIDES_PID" 2>/dev/null; then
+            kill "$SLIDES_PID"
+            echo "   ✅ Stopped Slides server"
+        fi
     fi
     exit 0
 }
@@ -160,64 +165,108 @@ cleanup() {
 # Set up signal handlers
 trap cleanup SIGINT SIGTERM
 
-# Kill any existing ttyd processes
-echo "🧹 Cleaning up existing ttyd processes..."
-pkill -f "ttyd.*7681" || true
-sleep 1
-
-# Start ttyd
-echo "🚀 Starting ttyd on port 7681..."
-cd ~ && ttyd -p 7681 -i 0.0.0.0 -t fontSize=18 -t 'theme={"background": "#1e1e1e"}' -W zsh > /tmp/ttyd.log 2>&1 &
-TTYD_PID=$!
-sleep 1
-if kill -0 "$TTYD_PID" 2>/dev/null; then
-    echo "   ✅ ttyd started successfully"
+# Detect OS and start services appropriately
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    # Linux with systemd
+    echo "📋 Installing systemd service files..."
+    sudo cp systemd/*.service /etc/systemd/system/
+    sudo systemctl daemon-reload
+    
+    # Start services using systemd
+    echo "🚀 Starting Ludus services..."
+    sudo systemctl start ludus.service
+    
+    # Wait a moment for services to start
+    sleep 5
+    
+    # Check if all services are running
+    echo ""
+    echo "🔍 Checking service status..."
+    if systemctl is-active --quiet ludus-ttyd.service; then
+        echo "   ✅ ttyd running"
+    else
+        echo "   ❌ ttyd failed to start"
+    fi
+    
+    if systemctl is-active --quiet ludus-gui.service; then
+        echo "   ✅ Ludus GUI running"
+    else
+        echo "   ❌ Ludus GUI failed to start"
+    fi
+    
+    if systemctl is-active --quiet ludus-slides.service; then
+        echo "   ✅ Slides server running"
+    else
+        echo "   ❌ Slides server failed to start"
+    fi
+    
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS - fall back to manual process management
+    echo "🍎 macOS detected - using manual process management..."
+    
+    # Kill any existing ttyd processes
+    echo "🧹 Cleaning up existing ttyd processes..."
+    pkill -f "ttyd.*7681" || true
+    sleep 1
+    
+    # Start ttyd
+    echo "🚀 Starting ttyd on port 7681..."
+    cd ~ && ttyd -p 7681 -i 0.0.0.0 -t fontSize=18 -t 'theme={"background": "#1e1e1e"}' -W zsh > /tmp/ttyd.log 2>&1 &
+    TTYD_PID=$!
+    sleep 1
+    if kill -0 "$TTYD_PID" 2>/dev/null; then
+        echo "   ✅ ttyd started successfully"
+    else
+        echo "   ❌ Failed to start ttyd"
+        exit 1
+    fi
+    
+    # Install and start Ludus GUI
+    echo "🚀 Starting Ludus GUI on port 3000..."
+    cd ludus-gui
+    ./setup.sh
+    
+    echo "🔨 Building Ludus GUI for production..."
+    npm run build
+    echo "🚀 Starting Ludus GUI in production mode..."
+    npx next start -H 0.0.0.0 > /tmp/ludus-gui.log 2>&1 &
+    LUDUS_PID=$!
+    cd ..
+    
+    # Start slides server
+    echo "🚀 Starting slides server on port 80..."
+    cd shell-n-slides
+    python3 -m http.server 80 --bind 0.0.0.0 > /tmp/slides.log 2>&1 &
+    SLIDES_PID=$!
+    cd ..
+    
+    # Wait a moment for services to start
+    sleep 3
+    
+    # Check if all services are running
+    echo ""
+    echo "🔍 Checking service status..."
+    if kill -0 "$TTYD_PID" 2>/dev/null; then
+        echo "   ✅ ttyd running (PID: $TTYD_PID)"
+    else
+        echo "   ❌ ttyd failed to start"
+    fi
+    
+    if kill -0 "$LUDUS_PID" 2>/dev/null; then
+        echo "   ✅ Ludus GUI running (PID: $LUDUS_PID)"
+    else
+        echo "   ❌ Ludus GUI failed to start"
+    fi
+    
+    if kill -0 "$SLIDES_PID" 2>/dev/null; then
+        echo "   ✅ Slides server running (PID: $SLIDES_PID)"
+    else
+        echo "   ❌ Slides server failed to start"
+    fi
+    
 else
-    echo "   ❌ Failed to start ttyd"
+    echo "❌ Unsupported operating system: $OSTYPE"
     exit 1
-fi
-
-# Install and start Ludus GUI
-echo "🚀 Starting Ludus GUI on port 3000..."
-cd ludus-gui
-./setup.sh
-
-echo "🔨 Building Ludus GUI for production..."
-npm run build
-echo "🚀 Starting Ludus GUI in production mode..."
-npx next start -H 0.0.0.0 > /tmp/ludus-gui.log 2>&1 &
-LUDUS_PID=$!
-cd ..
-
-# Start slides server
-echo "🚀 Starting slides server on port 8000..."
-cd shell-n-slides
-python3 -m http.server 8000 --bind 0.0.0.0 > /tmp/slides.log 2>&1 &
-SLIDES_PID=$!
-cd ..
-
-# Wait a moment for services to start
-sleep 3
-
-# Check if all services are running
-echo ""
-echo "🔍 Checking service status..."
-if kill -0 "$TTYD_PID" 2>/dev/null; then
-    echo "   ✅ ttyd running (PID: $TTYD_PID)"
-else
-    echo "   ❌ ttyd failed to start"
-fi
-
-if kill -0 "$LUDUS_PID" 2>/dev/null; then
-    echo "   ✅ Ludus GUI running (PID: $LUDUS_PID)"
-else
-    echo "   ❌ Ludus GUI failed to start"
-fi
-
-if kill -0 "$SLIDES_PID" 2>/dev/null; then
-    echo "   ✅ Slides server running (PID: $SLIDES_PID)"
-else
-    echo "   ❌ Slides server failed to start"
 fi
 
 echo ""
@@ -234,7 +283,7 @@ fi
 
 echo "📍 Access URLs:"
 echo "   • Ludus GUI:     http://localhost:3000 or http://${NETWORK_IP}:3000"
-echo "   • Slideshow:     http://localhost:8000 or http://${NETWORK_IP}:8000"  
+echo "   • Slideshow:     http://localhost:80 or http://${NETWORK_IP}:80"  
 echo "   • Terminal:      http://localhost:7681 or http://${NETWORK_IP}:7681"
 echo ""
 echo "🔄 Integration:"
@@ -242,13 +291,27 @@ echo "   The Ludus GUI iframe is configured to load at localhost:3000"
 echo "   The terminal iframe connects to localhost:7681"
 echo ""
 echo "📋 Management:"
-echo "   • View logs:     tail -f logs/[service].log"
-echo "   • Stop all:      Press Ctrl+C"
-echo ""
-echo "🔧 Process IDs:"
-echo "   • ttyd:          $TTYD_PID"
-echo "   • Ludus GUI:     $LUDUS_PID"
-echo "   • Slides:        $SLIDES_PID"
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    echo "   • View logs:     journalctl -u ludus-ttyd.service -f"
+    echo "   •                journalctl -u ludus-gui.service -f"
+    echo "   •                journalctl -u ludus-slides.service -f"
+    echo "   • Stop all:      Press Ctrl+C or sudo systemctl stop ludus.service"
+    echo "   • Enable:        sudo systemctl enable ludus.service"
+    echo ""
+    echo "🔧 Service Status:"
+    echo "   • Check:         systemctl status ludus.service"
+    echo "   • Individual:    systemctl status ludus-[ttyd|gui|slides].service"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "   • View logs:     tail -f /tmp/ttyd.log"
+    echo "   •                tail -f /tmp/ludus-gui.log"
+    echo "   •                tail -f /tmp/slides.log"
+    echo "   • Stop all:      Press Ctrl+C"
+    echo ""
+    echo "🔧 Process IDs:"
+    echo "   • ttyd:          $TTYD_PID"
+    echo "   • Ludus GUI:     $LUDUS_PID"
+    echo "   • Slides:        $SLIDES_PID"
+fi
 echo ""
 echo "Press Ctrl+C to stop all services..."
 
