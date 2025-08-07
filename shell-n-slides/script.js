@@ -338,10 +338,23 @@ function updateTerminalSrc() {
         return;
     }
 
-    // Always use localhost:7681 for native script execution
-    const terminalUrl = 'http://localhost:7681';
-    console.log('Setting terminal URL to:', terminalUrl);
-    terminalIframe.src = terminalUrl;
+    const currentUrl = window.location.href;
+    const ipRegex = /^(https?:\/\/)?((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3})(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/;
+    const match = currentUrl.match(ipRegex);
+
+    if (match) {
+        const baseIp = match[2];
+        let terminalUrl = "";
+        if (baseIp === '127.0.0.') { // For local testing
+            terminalUrl = `http://${baseIp}1:7681`;
+        } else {
+            terminalUrl = `http://${baseIp}2:7681`;
+        }
+        console.log(terminalUrl)
+        terminalIframe.src = terminalUrl;
+    } else {
+        console.error('Could not determine server IP');
+    }
 }
 
 // Function to manage terminal visibility based on slide
@@ -622,4 +635,12 @@ Reveal.addEventListener('slidechanged', function (event) {
     }
     // Also re-add clickable-command listeners in case new commands appeared
     setTimeout(addClickableCommandListeners, 500);
+
+    // Set the Ludus GUI iframe src to the current host with port 3000 when the GUI demo is visible
+    if (event.currentSlide.querySelector('#ludus-gui-iframe')) {
+        const iframe = document.getElementById('ludus-gui-iframe');
+        const currentHost = window.location.hostname;
+        iframe.src = `http://${currentHost}:3000`;
+        console.log('Ludus GUI iframe src:', iframe.src);
+     }
 });
