@@ -16,10 +16,24 @@ export const rangeEditorTutorialSteps: TutorialStep[] = [
     completionTrigger: 'auto-detect'
   },
   {
+    id: 'drag-debian-vm',
+    targetSelector: '[data-template-name="debian-12-x64-server-template"]',
+    title: 'Step 2: Drag Debian Template',
+    description: 'Now drag this Debian server template onto the canvas. This will be our second VM for the range.',
+    position: 'right',
+    offset: { x: 10, y: 0 },
+    validation: {
+      type: 'element-count',
+      selector: '[data-vm-template*="debian"][data-testid="vm-component"]',
+      expectedCount: 1 // At least 1 Debian VM on canvas
+    },
+    completionTrigger: 'auto-detect'
+  },
+  {
     id: 'click-vm',
-    targetSelector: '[data-vm-template*="kali"], [data-testid="vm-component"]:last-child',
-    title: 'Step 2: Click the VM',
-    description: 'Click on the Kali VM you just added to the canvas to open its configuration sidebar.',
+    targetSelector: '[data-vm-template*="debian"], [data-testid="vm-component"]:last-child',
+    title: 'Step 3: Click the VM',
+    description: 'Click on the Debian VM you just added to the canvas to open its configuration sidebar.',
     position: 'top',
     offset: { x: -10, y: 0 },
     validation: {
@@ -31,7 +45,7 @@ export const rangeEditorTutorialSteps: TutorialStep[] = [
   {
     id: 'advanced-tab',
     targetSelector: '[data-tab="advanced"]',
-    title: 'Step 3: Navigate to Advanced Tab',
+    title: 'Step 4: Navigate to Advanced Tab',
     description: 'Click on the "Advanced" tab in the VM configuration sidebar.',
     position: 'left',
     offset: { x: -10, y: 0 },
@@ -46,7 +60,7 @@ export const rangeEditorTutorialSteps: TutorialStep[] = [
   {
     id: 'select-role',
     targetSelector: '[data-field="ansible-roles"]',
-    title: 'Step 4: Select Ansible Role',
+    title: 'Step 5: Select Ansible Role',
     description: 'Choose an Ansible role to configure this VM automatically. Roles install software and configure settings.',
     position: 'left',
     offset: { x: -10, y: 0 },
@@ -61,8 +75,8 @@ export const rangeEditorTutorialSteps: TutorialStep[] = [
   {
     id: 'deploy-range',
     targetSelector: '[data-action="deploy-range"]',
-    title: 'Step 5: Deploy Range',
-    description: 'Click Deploy to create your cyber range with the configured VM and role.',
+    title: 'Step 6: Deploy Range',
+    description: 'Click Deploy to create your cyber range with the configured VMs and roles.',
     position: 'left',
     offset: { x: -10, y: 0 },
     validation: {

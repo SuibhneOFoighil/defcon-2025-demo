@@ -33,26 +33,7 @@ export const mockTemplates: Template[] = [
 ]
 
 // Mock VM data for the demo - simplified to just camera VM
-export const mockVMs: VMData[] = [
-  {
-    id: 'vm-30-1',
-    label: 'Security Camera (camera01)',
-    status: 'Running',
-    vmName: 'DEMO-camera01',
-    vlan: 30,
-    template: 'ubuntu-22.04-x64-server-template',
-    hostname: 'camera01',
-    ipLastOctet: 50,
-    ramGb: 2,
-    cpus: 1,
-    isDeployed: true,
-    poweredOn: true,
-    ipAddress: '192.168.30.50',
-    proxmoxId: 106,
-    ansibleGroups: ['security_cameras'],
-    roles: ['security_camera', 'monitoring']
-  }
-]
+export const mockVMs: VMData[] = []
 
 // Mock VLAN definitions - includes both attacker and security networks
 export const mockVLANs: VlanDefinition[] = [
@@ -61,26 +42,11 @@ export const mockVLANs: VlanDefinition[] = [
     label: 'VLAN 10',
     description: 'Attacker network with Kali Linux systems',
     configuredVMs: ['DEMO-kali01']
-  },
-  {
-    id: 30,
-    label: 'Security Network', 
-    description: 'Security cameras and monitoring systems',
-    configuredVMs: ['DEMO-camera01']
   }
 ]
 
 // Mock network rules - simplified for camera network
-export const mockNetworkRules: NetworkRule[] = [
-  {
-    name: 'Camera Internet Access',
-    vlan_src: 30,
-    vlan_dst: 'public',
-    protocol: 'tcp',
-    ports: '80,443',
-    action: 'ACCEPT'
-  }
-]
+export const mockNetworkRules: NetworkRule[] = []
 
 // Mock router configuration
 export const mockRouterConfig: RouterConfig & { 
