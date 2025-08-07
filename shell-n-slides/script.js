@@ -128,10 +128,20 @@ function initializeResizer() {
     const slideshow = document.getElementById('slideshow');
     const terminal = document.getElementById('terminal');
 
-    // Set initial terminal height
+    // Set initial sizes using flex-basis with smooth transitions disabled
     const totalHeight = window.innerHeight;
     const initialTerminalHeight = totalHeight * 0.3;
-    slideshow.style.height = `${totalHeight - initialTerminalHeight}px`;
+    
+    // Temporarily disable CSS transitions to prevent jumpiness
+    slideshow.style.transition = 'none';
+    terminal.style.transition = 'none';
+    
+    slideshow.style.flexBasis = `${totalHeight - initialTerminalHeight}px`;
+    slideshow.style.flexGrow = '0';
+    slideshow.style.flexShrink = '0';
+    terminal.style.flexBasis = `${initialTerminalHeight}px`;
+    terminal.style.flexGrow = '0';
+    terminal.style.flexShrink = '0';
 
     separator.addEventListener('mousedown', (e) => {
         // Only start resizing if left mouse button is pressed
@@ -156,18 +166,26 @@ function initializeResizer() {
         const delta = e.clientY - lastDownY;
         lastDownY = e.clientY;
 
+        // Only skip when there's no movement at all
+        if (delta === 0) return;
+
+        // Always use the current flex-basis values for consistency
+        const currentSlideshowBasis = parseInt(slideshow.style.flexBasis);
+        const currentTerminalBasis = parseInt(terminal.style.flexBasis);
+        
+        const newSlideshowHeight = currentSlideshowBasis + delta;
+        const newTerminalHeight = currentTerminalBasis - delta;
+
         const totalHeight = window.innerHeight;
-        const newSlideshowHeight = slideshow.offsetHeight + delta;
-        const newTerminalHeight = terminal.offsetHeight - delta;
 
         // Ensure minimum heights
-        if (newSlideshowHeight < totalHeight * 0.3 || newTerminalHeight < totalHeight * 0.1) return;
+        if (newSlideshowHeight < totalHeight * 0.2 || newTerminalHeight < totalHeight * 0.05) {
+            return;
+        }
 
-        slideshow.style.height = `${newSlideshowHeight}px`;
-        terminal.style.height = `${newTerminalHeight}px`;
-
-        // Trigger reveal.js to update its layout
-        Reveal.layout();
+        // Update flex-basis smoothly
+        slideshow.style.flexBasis = `${newSlideshowHeight}px`;
+        terminal.style.flexBasis = `${newTerminalHeight}px`;
     });
 
     document.addEventListener('mouseup', (e) => {
@@ -394,8 +412,10 @@ function manageTerminalVisibility(slideId) {
         // Show terminal and separator, restore original layout
         terminal.style.display = 'block';
         separator.style.display = 'flex';
-        slideshow.style.flex = '1';
-        slideshow.style.height = 'auto';
+        // Remove flex: 1 to avoid conflict with explicit height management
+        slideshow.style.flex = '';
+        // Don't override height - let the resizer manage it
+        // slideshow.style.height = 'auto';
         
         // Force Reveal.js to recalculate layout after DOM changes
         setTimeout(() => {
